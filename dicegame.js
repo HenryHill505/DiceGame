@@ -1,6 +1,6 @@
-// for (let i=0;i<1000;i++){
-// 	console.log(rollDie(20));
-// }
+for (let i=0;i<1000;i++){
+	console.log(rollDie(5));
+}
 
 runGame();
 
@@ -89,7 +89,7 @@ function getPlayerAction() {
 }
 
 function rollDie(sideCount){
-	return Math.ceil(Math.random()*sideCount);
+	return Math.floor(Math.random()*sideCount)+1;
 }
 
 function transitionScene(){
