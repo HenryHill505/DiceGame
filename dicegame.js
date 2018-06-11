@@ -1,6 +1,6 @@
-for (let i=0;i<1000;i++){
-	console.log(rollDie(5));
-}
+// for (let i=0;i<1000;i++){
+// 	console.log(rollDie(5));
+// }
 
 runGame();
 
@@ -40,7 +40,7 @@ function runCombat(playerHealth){
 	while(playerHealth>0&&foeHealth>0){
 		//Get and execute player action
 		let playerMove = getPlayerAction();
-		if (playerMove === "Attack"||playerMove === "1"){
+		if (playerMove === "A"){
 			if (attackHit(foeAC)){
 				console.log("Your attack hits!");
 				foeHealth -= rollDie(8);
@@ -81,8 +81,8 @@ function attackHit(targetAC){
 }
 
 function getPlayerAction() {
-	let playerAction = prompt("Choose an Action (1.Attack)");
-	while (playerAction !== "1"&&playerAction !== "Attack"){
+	let playerAction = prompt("What will you do? (A)ttack, (B)lock, (E)vade, (I)nventory").charAt(0);
+	while (playerAction !== "A"){
 		playerAction = prompt("Invalid choice. Choose a valid Action (1.Attack)")
 	}
 	return playerAction;
