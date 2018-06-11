@@ -6,7 +6,7 @@ runGame();
 
 function awardGold(){
 	goldPiecesWon = rollDie(10);
-	console.log("You find "+goldPiecesWon+"gold pieces on your slain foe.");
+	console.log("You find "+goldPiecesWon+" gold pieces on your slain foe.");
 	return goldPiecesWon;
 }
 
@@ -39,14 +39,14 @@ function runCombat(playerHealth){
 
 	while(playerHealth>0&&foeHealth>0){
 		//Get and execute player action
-		let playerMove = getPlayerMove();
+		let playerMove = getPlayerAction();
 		if (playerMove === "Attack"||playerMove === "1"){
 			if (attackHit(foeAC)){
-				console.log("PlayerHits");
+				console.log("Your attack hits!");
 				foeHealth -= rollDie(8);
 			}
 			else {
-				console.log("PlayerMisses");
+				console.log("Your attack misses.");
 			}
 		}
 		//Execute Foe Attack
@@ -57,14 +57,14 @@ function runCombat(playerHealth){
 			console.log("Your foe misses.");
 		}
 
-		console.log("Player HP: "+playerHealth+"Foe Health: "+foeHealth);
+		console.log("Player HP: "+playerHealth+" Foe Health: "+foeHealth);
 	}
 
 	//Display Combat Result
 	if (playerHealth<=0){
-		console.log("You have been defeated by your foe");
+		console.log("You have been defeated by your foe.");
 	} else if (foeHealth<=0){
-		console.log("You have defeated your foe");
+		console.log("You have defeated your foe!");
 	} else {
 		console.log("BUG Combat resolution is bugged BUG");
 	}
@@ -80,7 +80,7 @@ function attackHit(targetAC){
 	}
 }
 
-function getPlayerMove() {
+function getPlayerAction() {
 	let playerAction = prompt("Choose an Action (1.Attack)");
 	while (playerAction !== "1"&&playerAction !== "Attack"){
 		playerAction = prompt("Invalid choice. Choose a valid Action (1.Attack)")
