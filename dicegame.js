@@ -18,7 +18,6 @@ function runGame(){
 
 function runCombat(playerHealth){
 	let foeHealth = 20;
-	// let playerHealth = playerHealth;
 	let playerAC = 12;
 	let foeAC = 10;
 
@@ -35,7 +34,7 @@ function runCombat(playerHealth){
 			}
 		}
 		//Execute Foe Attack
-		if (attackHit(playerAC)){
+		if (foeHealth>0&&attackHit(playerAC)){
 			console.log("Your foe hits!");
 			playerHealth -= rollDie(6);
 		} else {
@@ -79,7 +78,10 @@ function rollDie(sideCount){
 
 function transitionScene(){
 	let transitionText = ["Your journey takes you to", "You find yourself in", "You step into", "You come to"];
-	let newScene = [" a cave.", " a forest glade.", " a dusty riverbed.", " a mountain pass."]
+	let newScene = [" a cave.", " a forest glade.", " a dusty riverbed.", " a mountain pass."];
+	let newEnemy = ["A hairy troll","A snarling goblin","A putrified zombie","A filthy rat"];
+	let confrontationText =[" accosts you!", " blocks your path!", " leaps upon you from behind!", " attacks you!"];
 
 	console.log(transitionText[rollDie(4)-1]+newScene[rollDie(4)-1]);
+	console.log(newEnemy[rollDie(4)-1]+confrontationText[rollDie(4)-1]);
 }
