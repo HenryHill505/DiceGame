@@ -4,15 +4,26 @@
 
 runGame();
 
+function awardGold(){
+	goldPiecesWon = rollDie(10);
+	console.log("You find "+goldPiecesWon+"gold pieces on your slain foe.");
+	return goldPiecesWon;
+}
+
 function runGame(){
 	let globalplayerHealth = 20;
 	let victoryCounter = 0;
+	let goldCounter = 0;
 	while (globalplayerHealth>0){
 		transitionScene();
 		globalplayerHealth = runCombat(globalplayerHealth)
-		if (globalplayerHealth>0){victoryCounter++};
+		if (globalplayerHealth>0){
+			victoryCounter++
+			goldCounter += awardGold();
+		};
 	}
 	console.log("After winning " +victoryCounter+ " fights, you fall to your last opponent");
+	console.log("You accrued "+goldCounter+ " pieces of gold before your death");
 	console.log("Game Over");
 }
 
