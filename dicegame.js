@@ -2,11 +2,23 @@
 // 	console.log(rollDie(20));
 // }
 
-runCombat();
+runGame();
 
-function runCombat(){
+function runGame(){
+	let globalplayerHealth = 20;
+	let victoryCounter = 0;
+	while (globalplayerHealth>0){
+		transitionScene();
+		globalplayerHealth = runCombat(globalplayerHealth)
+		if (globalplayerHealth>0){victoryCounter++};
+	}
+	console.log("After winning " +victoryCounter+ " fights, you fall to your last opponent");
+	console.log("Game Over");
+}
+
+function runCombat(playerHealth){
 	let foeHealth = 20;
-	let playerHealth = 20;
+	// let playerHealth = playerHealth;
 	let playerAC = 12;
 	let foeAC = 10;
 
@@ -41,6 +53,8 @@ function runCombat(){
 	} else {
 		console.log("BUG Combat resolution is bugged BUG");
 	}
+
+	return playerHealth;
 }
 
 function attackHit(targetAC){
@@ -61,4 +75,11 @@ function getPlayerMove() {
 
 function rollDie(sideCount){
 	return Math.ceil(Math.random()*sideCount);
+}
+
+function transitionScene(){
+	let transitionText = ["Your journey takes you to", "You find yourself in", "You step into", "You come to"];
+	let newScene = [" a cave.", " a forest glade.", " a dusty riverbed.", " a mountain pass."]
+
+	console.log(transitionText[rollDie(4)-1]+newScene[rollDie(4)-1]);
 }
