@@ -10,6 +10,12 @@ function awardGold(){
 	return goldPiecesWon;
 }
 
+function displayGameOver(victories,goldPieces){
+	console.log("After winning " +victories+ " fights, you fall to your last opponent");
+	console.log("You accrued "+goldPieces+ " pieces of gold before your death");
+	console.log("Game Over");	
+}
+
 function runGame(){
 	let globalplayerHealth = 20;
 	let victoryCounter = 0;
@@ -22,9 +28,8 @@ function runGame(){
 			goldCounter += awardGold();
 		};
 	}
-	console.log("After winning " +victoryCounter+ " fights, you fall to your last opponent");
-	console.log("You accrued "+goldCounter+ " pieces of gold before your death");
-	console.log("Game Over");
+
+	displayGameOver(victoryCounter,goldCounter)	
 }
 
 function runCombat(playerHealth){
