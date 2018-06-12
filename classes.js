@@ -166,7 +166,9 @@ class playerCharacter {
 
 	equipItem(playerObject, item) {
 
-		
+		if(item.position = "consumable"){
+			//apply effect and dissappear
+		}
 		itemPosition = item.position;
 		player.itemPosition = item;
 	}
