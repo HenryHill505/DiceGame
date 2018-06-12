@@ -32,26 +32,32 @@ class enemyTroll {
 		this.isChargingMove = false;
 	}
 
-	chooseAction(){
-		if (isFatigued){
+	//Decide if the troll will unleash a special attack, normal attack, or do nothing
+	willAttack(){
+		if (this.isFatigued){
 			console.log(this.name+" is recovering from it's last attack");
-			isFatigued = false;
-		} else if (isChargingMove){
+			this.isFatigued = false;
+			return false;
+		} else if (this.isChargingMove){
 			console.log("The troll unleashes a devastating swing");
-			isChargingMove = false;
-			isFatigued = true;
-		} else if (this.health<=15&&rollDie(3)=3){
-			isChargingAttack = true;
+			this.isChargingMove = false;
+			this.isFatigued = true;
+			return true;
+		} else if (this.health<=15&&rollDie(1)===1){
+			this.isChargingMove = true;
 			console.log("The troll pulls back his club in preparation for a mighty swing...");
+			return false
 		} else {
-
+			return true
 		}
 	}
 
 	rollDamage(){
-		if (isFatigued){
+		if (this.isFatigued){
+			console.log("DamageDie: "+this.specialDamageDie);
 			return rollDie(this.specialDamageDie);
 		} else {
+			console.log("DamageDie: "+this.damageDie);
 			return rollDie(this.damageDie);
 		}
 	}

@@ -40,9 +40,10 @@ function runCombat(playerHealth){
 	// let foeHealth = 20;
 	let playerAC = 12;
 	// let foeAC = 10;
-	let foeArray = [enemyGoblin,enemyRat,enemyTroll,enemyZombie];
+	// let foeArray = [enemyGoblin,enemyRat,enemyTroll,enemyZombie];
 
-	let foe = new foeArray[rollDie(4)-1];
+	// let foe = new foeArray[rollDie(4)-1];
+	let foe = new enemyTroll;
 	console.log("A "+foe.name+ " appears!")
 
 	while(playerHealth>0&&foe.health>0){
@@ -57,16 +58,25 @@ function runCombat(playerHealth){
 				console.log("Your attack misses.");
 			}
 		}
+
+
+
+		////////////////////////////////////////////////
 		//Execute Foe Attack
-		if (foe.health>0&&attackHit(playerAC,foe.hitBonus)){
-			console.log("The "+foe.name+" hits!");
-			playerHealth -= rollDie(foe.damageDie);
-		} else {
-			console.log("The "+foe.name+" misses.");
+		if (foe.health>0&&foe.willAttack()){
+			if (attackHit(playerAC,foe.hitBonus)){
+				console.log("The "+foe.name+" hits!");
+				playerHealth -= foe.rollDamage();
+			} else {
+				console.log("The "+foe.name+" misses.");
+			}
 		}
 
 		console.log("Player HP: "+playerHealth+" "+foe.name+" HP: "+foe.health);
 	}
+
+
+	//////////////////////////////////////////////////
 
 	//Display Combat Result
 	if (playerHealth<=0){
@@ -79,7 +89,7 @@ function runCombat(playerHealth){
 }
 
 function runGame(){
-	let globalplayerHealth = 20;
+	let globalplayerHealth = 50;
 	let victoryCounter = 0;
 	let goldCounter = 0;
 	while (globalplayerHealth>0){
