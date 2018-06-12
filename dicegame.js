@@ -32,6 +32,8 @@ function getPlayerAction() {
 	return playerAction;
 }
 
+
+//If the players stats are augmented, returns the original value for resetting at the end of the round.
 function resolvePlayerAction(action,playerObject,foeObject){
 	switch (action){
 		case "a":
@@ -45,17 +47,35 @@ function resolvePlayerAction(action,playerObject,foeObject){
 			break;
 
 		case "b":
-			console.log("You waste your turn attempting to block, a technique that is still in development...");
+			originalStatValue = playerObject.damageResistance;
+			playerObject.damageResistance += 2;
+			console.log("You block, raising your DR to "+playerObject.damageResistance);
+			return originalStatValue;
 			break;
 		case "c":
 			console.log("You waste your turn attempting to charge, a technique that is still in development...");
 			break;
 		case "d":
-			console.log("You waste your turn attempting to dodge, a technique that is still in development...");
+			originalStatValue = playerObject.armorClass;
+			playerObject.armorClass += 2;
+			console.log("You dodge, raising your AC to "+ playerObject.armorClass);
+			return originalStatValue;
 			break;
 		case "i":
 			console.log("You waste your turn attempting to access your inventory, a technology that is still in development...");
 			break;
+	}
+}
+
+function resetStatChanges(action,playerObject,statValue){
+	switch(action){
+		case "b":
+			playerObject.damageResistance = statValue;
+			console.log("Player DR reset to "+playerObject.damageResistance);
+			break;
+		case "d":
+			playerObject.armorClass = statValue;
+			console.log("Player AC reset to "+playerObject.armorClass);
 
 	}
 }
@@ -76,7 +96,7 @@ function runCombat(player){
 	while(player.health>0&&foe.health>0){
 		//Get and execute player action
 		let playerMove = getPlayerAction();
-		resolvePlayerAction(playerMove,player,foe);
+		let originalStatValue = resolvePlayerAction(playerMove,player,foe);
 
 
 		//Execute Foe Attack
@@ -91,6 +111,7 @@ function runCombat(player){
 		}
 
 		console.log("Player HP: "+player.health+" "+foe.name+" HP: "+foe.health);
+		resetStatChanges(playerMove,player,originalStatValue);
 	}
 
 	//Display Combat Result
