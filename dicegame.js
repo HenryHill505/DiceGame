@@ -89,19 +89,20 @@ function runCombat(playerHealth){
 }
 
 function runGame(){
-	let globalplayerHealth = 50;
-	let victoryCounter = 0;
-	let goldCounter = 0;
-	while (globalplayerHealth>0){
+	// let globalplayerHealth = 50;
+	// let victoryCounter = 0;
+	// let goldCounter = 0;
+	let player = new playerCharacter;
+	while (player.health>0){
 		transitionScene();
-		globalplayerHealth = runCombat(globalplayerHealth)
-		if (globalplayerHealth>0){
-			victoryCounter++
-			goldCounter += awardGold();
+		player.health = runCombat(player.health)
+		if (player.health>0){
+			player.victories++
+			player.gold += awardGold();
 		};
 	}
 
-	displayGameOver(victoryCounter,goldCounter)	
+	displayGameOver(player.victories,player.gold)	
 }
 
 function transitionScene(){

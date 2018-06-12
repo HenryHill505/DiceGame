@@ -110,20 +110,20 @@ class enemyZombie {
 		if (this.isFatigued){
 			this.isFatigued = false;
 			this.statusInfliction = false;
-			console.log("The " this.name + " is recovering from its last attack.")
+			console.log("The "+this.name + " is recovering from its last attack.");
 			return false;
 		} else if (this.isChargingMove){
 			this.isChargingMove = false;
 			this.isFatigued = true;
 			this.statusInfliction = "paralyze";
-			console.log("The " this.name " bites at you!")
+			console.log("The " +this.name+ " bites at you!");
 			return true;
 		} else if (rollDie(3)===3){
 			this.isChargingMove = true;
 			console.log("The " + this.name + " opens wide its putrid maw.");
 			return false;
 		} else {
-			console.log("The " + this.name " attacks.");
+			console.log("The " + this.name +" attacks.");
 			return true;
 		}
 	}
@@ -138,17 +138,19 @@ class playerCharacter {
 	}
 
 	takeStatusInfliction(status) {
-		case "paralyze":
-			this.statusEffect = "paralyze";
-			console.log("You have been parlyzed!");
-			break;
-		case "poison":
-			this.statusEffect = "poison";
-			console.log("You have been poisoned");
-			break;
+		switch(status){
+			case "paralyze":
+				this.statusEffect = "paralyze";
+				console.log("You have been parlyzed!");
+				break;
+			case "poison":
+				this.statusEffect = "poison";
+				console.log("You have been poisoned");
+				break;
+		}
 	}
 
-	
+
 }
 
 
