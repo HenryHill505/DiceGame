@@ -147,6 +147,8 @@ class playerCharacter {
 		this.gold = 0;
 		this.victories = 0;
 		this.statusEffect = "none";
+		this.weapon = null
+		this.inventory = [];
 	}
 
 	takeStatusInfliction(status) {
@@ -162,7 +164,30 @@ class playerCharacter {
 		}
 	}
 
+	equipItem(playerObject, item) {
+
+		
+		itemPosition = item.position;
+		player.itemPosition = item;
+	}
+
 
 }
 
+class weaponSteelDagger {
+	constructor() {
+		this.name = "Steel Dagger";
+		this.damageDie = 4;
+		this.statusInfliction = "none";
+		this.position = "weapon";
+	}
+}
 
+class weaponSteelLongsword {
+	constructor(){
+		this.name = "Steel Longsword";
+		this.damageDie = 6;
+		this.statusInfliction = "none";
+		this.position = "weapon";
+	}
+}

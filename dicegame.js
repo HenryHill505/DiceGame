@@ -32,6 +32,9 @@ function getPlayerAction() {
 	return playerAction;
 }
 
+function manageInventory(playerObject){
+	prompt("Choose item to equip, unequip, or use")
+}
 
 //If the players stats are augmented, returns the original value for resetting at the end of the round.
 function resolvePlayerAction(action,playerObject,foeObject){
