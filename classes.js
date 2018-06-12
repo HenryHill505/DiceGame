@@ -10,7 +10,7 @@ class enemyGoblin {
 	}
 
 	rollDamage(){
-		if (isFatigued){
+		if (this.isFatigued){
 			return rollDie(this.specialDamageDie);
 		} else {
 			return rollDie(this.damageDie);
@@ -81,7 +81,7 @@ class enemyRat {
 	}
 
 	rollDamage(){
-		if (isFatigued){
+		if (this.isFatigued){
 			return rollDie(this.specialDamageDie);
 		} else {
 			return rollDie(this.damageDie);

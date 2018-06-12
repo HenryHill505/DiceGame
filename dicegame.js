@@ -38,12 +38,11 @@ function rollDie(sideCount){
 
 function runCombat(player){
 	// let foeHealth = 20;
-	//let playerAC = 12;
+	// let playerAC = 12;
 	// let foeAC = 10;
-	// let foeArray = [enemyGoblin,enemyRat,enemyTroll,enemyZombie];
+	let foeArray = [enemyGoblin,enemyRat,enemyTroll,enemyZombie];
 
-	// let foe = new foeArray[rollDie(4)-1];
-	let foe = new enemyTroll;
+	let foe = new foeArray[rollDie(4)-1];
 	console.log("A "+foe.name+ " appears!")
 
 	while(player.health>0&&foe.health>0){
@@ -52,7 +51,7 @@ function runCombat(player){
 		if (playerMove === "A"){
 			if (attackHit(foe.armorClass,player.attackBonus)){
 				console.log("Your attack hits!");
-				foe.health -= rollDie(8)-foe.damageResistance;
+				foe.health -= rollDie(player.damageDie)-foe.damageResistance;
 			}
 			else {
 				console.log("Your attack misses.");
