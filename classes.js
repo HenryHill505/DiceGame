@@ -138,8 +138,17 @@ class playerCharacter {
 	}
 
 	takeStatusInfliction(status) {
-		
+		case "paralyze":
+			this.statusEffect = "paralyze";
+			console.log("You have been parlyzed!");
+			break;
+		case "poison":
+			this.statusEffect = "poison";
+			console.log("You have been poisoned");
+			break;
 	}
+
+	
 }
 
 
