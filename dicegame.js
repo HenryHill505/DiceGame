@@ -47,7 +47,7 @@ function runCombat(playerHealth){
 		if (playerMove === "A"){
 			if (attackHit(foe.armorClass)){
 				console.log("Your attack hits!");
-				foe.health -= rollDie(8);
+				foe.health -= rollDie(8)-foe.damageResistance;
 			}
 			else {
 				console.log("Your attack misses.");
@@ -55,13 +55,13 @@ function runCombat(playerHealth){
 		}
 		//Execute Foe Attack
 		if (foe.health>0&&attackHit(playerAC)){
-			console.log("Your foe hits!");
+			console.log("The "+foe.name+" hits!");
 			playerHealth -= rollDie(foe.damageDie);
 		} else {
-			console.log("Your foe misses.");
+			console.log("The "+foe.name+" misses.");
 		}
 
-		console.log("Player HP: "+playerHealth+" Foe Health: "+foe.health);
+		console.log("Player HP: "+playerHealth+" "+foe.name+" HP: "+foe.health);
 	}
 
 	//Display Combat Result
@@ -69,8 +69,6 @@ function runCombat(playerHealth){
 		console.log("You have been defeated by your foe.");
 	} else if (foe.health<=0){
 		console.log("You have defeated your foe!");
-	} else {
-		console.log("BUG Combat resolution is bugged BUG");
 	}
 
 	return playerHealth;
