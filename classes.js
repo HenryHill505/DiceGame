@@ -129,4 +129,17 @@ class enemyZombie {
 	}
 }
 
+class playerCharacter {
+	constructor() {
+		this.health = 30;
+		this.gold = 0;
+		this.victories = 0;
+		this.statusEffect = "none";
+	}
+
+	takeStatusInfliction(status) {
+		
+	}
+}
+
 
