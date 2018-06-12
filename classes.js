@@ -164,7 +164,7 @@ class playerCharacter {
 		}
 	}
 
-	equipItem(playerObject, item) {
+	useItem(playerObject, item) {
 
 		if(item.position = "consumable"){
 			//apply effect and dissappear
