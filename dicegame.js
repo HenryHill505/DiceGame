@@ -45,7 +45,7 @@ function runCombat(playerHealth){
 		//Get and execute player action
 		let playerMove = getPlayerAction();
 		if (playerMove === "A"){
-			if (attackHit(foe.armorClass)){
+			if (attackHit(foe.armorClass,0)){
 				console.log("Your attack hits!");
 				foe.health -= rollDie(8)-foe.damageResistance;
 			}
@@ -54,7 +54,7 @@ function runCombat(playerHealth){
 			}
 		}
 		//Execute Foe Attack
-		if (foe.health>0&&attackHit(playerAC)){
+		if (foe.health>0&&attackHit(playerAC,foe.hitBonus)){
 			console.log("The "+foe.name+" hits!");
 			playerHealth -= rollDie(foe.damageDie);
 		} else {
@@ -74,8 +74,8 @@ function runCombat(playerHealth){
 	return playerHealth;
 }
 
-function attackHit(targetAC){
-	if (rollDie(20)>targetAC) {
+function attackHit(targetAC,hitBonus){
+	if (rollDie(20)+hitBonus>=targetAC) {
 		return true;
 	} else {
 		return false;
