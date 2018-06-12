@@ -33,37 +33,41 @@ function runGame(){
 }
 
 function runCombat(playerHealth){
-	let foeHealth = 20;
+	// let foeHealth = 20;
 	let playerAC = 12;
-	let foeAC = 10;
+	// let foeAC = 10;
+	let foeArray = [enemyGoblin,enemyRat,enemyTroll,enemyZombie];
 
-	while(playerHealth>0&&foeHealth>0){
+	let foe = new foeArray[rollDie(4)-1];
+	console.log("A "+foe.name+ " appears!")
+
+	while(playerHealth>0&&foe.health>0){
 		//Get and execute player action
 		let playerMove = getPlayerAction();
 		if (playerMove === "A"){
-			if (attackHit(foeAC)){
+			if (attackHit(foe.armorClass)){
 				console.log("Your attack hits!");
-				foeHealth -= rollDie(8);
+				foe.health -= rollDie(8);
 			}
 			else {
 				console.log("Your attack misses.");
 			}
 		}
 		//Execute Foe Attack
-		if (foeHealth>0&&attackHit(playerAC)){
+		if (foe.health>0&&attackHit(playerAC)){
 			console.log("Your foe hits!");
-			playerHealth -= rollDie(6);
+			playerHealth -= rollDie(foe.damageDie);
 		} else {
 			console.log("Your foe misses.");
 		}
 
-		console.log("Player HP: "+playerHealth+" Foe Health: "+foeHealth);
+		console.log("Player HP: "+playerHealth+" Foe Health: "+foe.health);
 	}
 
 	//Display Combat Result
 	if (playerHealth<=0){
 		console.log("You have been defeated by your foe.");
-	} else if (foeHealth<=0){
+	} else if (foe.health<=0){
 		console.log("You have defeated your foe!");
 	} else {
 		console.log("BUG Combat resolution is bugged BUG");
@@ -95,9 +99,9 @@ function rollDie(sideCount){
 function transitionScene(){
 	let transitionText = ["Your journey takes you to", "You find yourself in", "You step into", "You come to"];
 	let newScene = [" a cave.", " a forest glade.", " a dusty riverbed.", " a mountain pass."];
-	let newEnemy = ["A hairy troll","A snarling goblin","A putrified zombie","A filthy rat"];
+	let newEnemy = ["A hairy troll","A snarling foe","A putrified zombie","A filthy rat"];
 	let confrontationText =[" accosts you!", " blocks your path!", " leaps upon you from behind!", " attacks you!"];
 
 	console.log(transitionText[rollDie(4)-1]+newScene[rollDie(4)-1]);
-	console.log(newEnemy[rollDie(4)-1]+confrontationText[rollDie(4)-1]);
+	//console.log(newEnemy[rollDie(4)-1]+confrontationText[rollDie(4)-1]);
 }
