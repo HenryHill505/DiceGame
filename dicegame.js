@@ -53,7 +53,17 @@ function resolvePlayerAction(action,playerObject,foeObject){
 			return originalStatValue;
 			break;
 		case "c":
-			console.log("You waste your turn attempting to charge, a technique that is still in development...");
+			if (attackHit(foeObject.armorClass,playerObject.attackBonus+2)){
+				console.log("Your charge hits!");
+				foeObject.health -= rollDie(playerObject.damageDie)-foeObject.damageResistance;
+			}
+			else {
+				console.log("Your charge misses.");
+			}
+			originalStatValue = playerObject.armorClass;
+			playerObject.armorClass -= 2;
+			console.log("Your charge has left you with an AC of "+ playerObject.armorClass);
+			return originalStatValue
 			break;
 		case "d":
 			originalStatValue = playerObject.armorClass;
@@ -73,10 +83,14 @@ function resetStatChanges(action,playerObject,statValue){
 			playerObject.damageResistance = statValue;
 			console.log("Player DR reset to "+playerObject.damageResistance);
 			break;
+		case "c":
+			playerObject.armorClass = statValue;
+			console.log("Player AC reset to " +playerObject.damageResistance);
+			break;
 		case "d":
 			playerObject.armorClass = statValue;
 			console.log("Player AC reset to "+playerObject.armorClass);
-
+			break;
 	}
 }
 
