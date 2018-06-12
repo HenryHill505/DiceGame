@@ -70,9 +70,9 @@ function runCombat(playerHealth){
 
 	//Display Combat Result
 	if (playerHealth<=0){
-		console.log("You have been defeated by your foe.");
+		console.log("You have been defeated by the " +foe.name+"!");
 	} else if (foe.health<=0){
-		console.log("You have defeated your foe!");
+		console.log("You have defeated the "+foe.name+"!");
 	}
 
 	return playerHealth;
