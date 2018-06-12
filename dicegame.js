@@ -4,6 +4,14 @@
 
 runGame();
 
+function attackHit(targetAC,hitBonus){
+	if (rollDie(20)+hitBonus>=targetAC) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
 function awardGold(){
 	goldPiecesWon = rollDie(10);
 	console.log("You find "+goldPiecesWon+" gold pieces on your slain foe.");
@@ -16,20 +24,16 @@ function displayGameOver(victories,goldPieces){
 	console.log("Game Over");	
 }
 
-function runGame(){
-	let globalplayerHealth = 20;
-	let victoryCounter = 0;
-	let goldCounter = 0;
-	while (globalplayerHealth>0){
-		transitionScene();
-		globalplayerHealth = runCombat(globalplayerHealth)
-		if (globalplayerHealth>0){
-			victoryCounter++
-			goldCounter += awardGold();
-		};
+function getPlayerAction() {
+	let playerAction = prompt("What will you do? (A)ttack, (B)lock, (E)vade, (I)nventory").charAt(0);
+	while (playerAction !== "A"){
+		playerAction = prompt("Invalid choice. Choose a valid Action (1.Attack)")
 	}
+	return playerAction;
+}
 
-	displayGameOver(victoryCounter,goldCounter)	
+function rollDie(sideCount){
+	return Math.floor(Math.random()*sideCount)+1;
 }
 
 function runCombat(playerHealth){
@@ -74,24 +78,20 @@ function runCombat(playerHealth){
 	return playerHealth;
 }
 
-function attackHit(targetAC,hitBonus){
-	if (rollDie(20)+hitBonus>=targetAC) {
-		return true;
-	} else {
-		return false;
+function runGame(){
+	let globalplayerHealth = 20;
+	let victoryCounter = 0;
+	let goldCounter = 0;
+	while (globalplayerHealth>0){
+		transitionScene();
+		globalplayerHealth = runCombat(globalplayerHealth)
+		if (globalplayerHealth>0){
+			victoryCounter++
+			goldCounter += awardGold();
+		};
 	}
-}
 
-function getPlayerAction() {
-	let playerAction = prompt("What will you do? (A)ttack, (B)lock, (E)vade, (I)nventory").charAt(0);
-	while (playerAction !== "A"){
-		playerAction = prompt("Invalid choice. Choose a valid Action (1.Attack)")
-	}
-	return playerAction;
-}
-
-function rollDie(sideCount){
-	return Math.floor(Math.random()*sideCount)+1;
+	displayGameOver(victoryCounter,goldCounter)	
 }
 
 function transitionScene(){
