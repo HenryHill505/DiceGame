@@ -6,7 +6,17 @@ class enemyGoblin {
 		this.damageResistance = 0;
 		this.hitBonus = 2;
 		this.damageDie = 6;
+		this.isFatigued = false;
 	}
+
+	rollDamage(){
+	if (isFatigued){
+		return rollDie(this.specialDamageDie);
+	} else {
+		return rollDie(this.damageDie);
+	}
+}
+
 }
 
 class enemyTroll {
@@ -17,6 +27,33 @@ class enemyTroll {
 		this.damageResistance = 0;
 		this.hitBonus = 0;
 		this.damageDie = 8;
+		this.specialDamageDie = 12;
+		this.isFatigued = false;
+		this.isChargingMove = false;
+	}
+
+	chooseAction(){
+		if (isFatigued){
+			console.log(this.name+" is recovering from it's last attack");
+			isFatigued = false;
+		} else if (isChargingMove){
+			console.log("The troll unleashes a devastating swing");
+			isChargingMove = false;
+			isFatigued = true;
+		} else if (this.health<=15&&rollDie(3)=3){
+			isChargingAttack = true;
+			console.log("The troll pulls back his club in preparation for a mighty swing...");
+		} else {
+
+		}
+	}
+
+	rollDamage(){
+		if (isFatigued){
+			return rollDie(this.specialDamageDie);
+		} else {
+			return rollDie(this.damageDie);
+		}
 	}
 }
 
@@ -28,7 +65,16 @@ class enemyRat {
 		this.damageResistance = 0;
 		this.hitBonus = 1;
 		this.damageDie = 4;
+		this.isFatigued = false;
 	}
+
+	rollDamage(){
+	if (isFatigued){
+		return rollDie(this.specialDamageDie);
+	} else {
+		return rollDie(this.damageDie);
+	}
+}
 }
 
 class enemyZombie {
@@ -39,7 +85,16 @@ class enemyZombie {
 		this.damageResistance = 0;
 		this.hitBonus = 0;
 		this.damageDie = 4;
+		this.isFatigued = false;
 	}
+
+	rollDamage(){
+	if (isFatigued){
+		return rollDie(this.specialDamageDie);
+	} else {
+		return rollDie(this.damageDie);
+	}
+}
 }
 
 // let Goblin = new GoblinEnemy;
