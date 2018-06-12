@@ -25,11 +25,39 @@ function displayGameOver(victories,goldPieces){
 }
 
 function getPlayerAction() {
-	let playerAction = prompt("What will you do? (A)ttack, (B)lock, (E)vade, (I)nventory").charAt(0).toLowerCase();
-	while (playerAction !== "a"){
+	let playerAction = prompt("What will you do? (A)ttack, (B)lock, (C)harge, (D)odge, (I)nventory").charAt(0).toLowerCase();
+	while (playerAction !== "a"&&playerAction !== "b"&&playerAction !=="c"&&playerAction !=="d"&&playerAction !=="i"){
 		playerAction = prompt("Invalid choice. Choose a valid Action (1.Attack)")
 	}
 	return playerAction;
+}
+
+function resolvePlayerAction(action,playerObject,foeObject){
+	switch (action){
+		case "a":
+			if (attackHit(foeObject.armorClass,playerObject.attackBonus)){
+				console.log("Your attack hits!");
+				foeObject.health -= rollDie(playerObject.damageDie)-foeObject.damageResistance;
+			}
+			else {
+				console.log("Your attack misses.");
+			}
+			break;
+
+		case "b":
+			console.log("You waste your turn attempting to block, a technique that is still in development...");
+			break;
+		case "c":
+			console.log("You waste your turn attempting to charge, a technique that is still in development...");
+			break;
+		case "d":
+			console.log("You waste your turn attempting to dodge, a technique that is still in development...");
+			break;
+		case "i":
+			console.log("You waste your turn attempting to access your inventory, a technology that is still in development...");
+			break;
+
+	}
 }
 
 function rollDie(sideCount){
@@ -48,15 +76,8 @@ function runCombat(player){
 	while(player.health>0&&foe.health>0){
 		//Get and execute player action
 		let playerMove = getPlayerAction();
-		if (playerMove === "a"){
-			if (attackHit(foe.armorClass,player.attackBonus)){
-				console.log("Your attack hits!");
-				foe.health -= rollDie(player.damageDie)-foe.damageResistance;
-			}
-			else {
-				console.log("Your attack misses.");
-			}
-		}
+		resolvePlayerAction(playerMove,player,foe);
+
 
 		//Execute Foe Attack
 		if (foe.health>0&&foe.willAttack()){
