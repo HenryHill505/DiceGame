@@ -107,7 +107,7 @@ class enemyZombie {
 	}
 
 	rollDamage(){
-		if (isFatigued){
+		if (this.isFatigued){
 			return rollDie(this.specialDamageDie);
 		} else {
 			return rollDie(this.damageDie);
