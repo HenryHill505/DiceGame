@@ -63,6 +63,7 @@ function runCombat(player){
 			if (attackHit(player.armorClass,foe.hitBonus)){
 				console.log("The "+foe.name+" hits!");
 				player.health -= foe.rollDamage();
+				player.statusEffect = foe.statusInfliction;
 			} else {
 				console.log("The "+foe.name+" misses.");
 			}
