@@ -36,9 +36,9 @@ function rollDie(sideCount){
 	return Math.floor(Math.random()*sideCount)+1;
 }
 
-function runCombat(playerHealth){
+function runCombat(player){
 	// let foeHealth = 20;
-	let playerAC = 12;
+	//let playerAC = 12;
 	// let foeAC = 10;
 	// let foeArray = [enemyGoblin,enemyRat,enemyTroll,enemyZombie];
 
@@ -46,11 +46,11 @@ function runCombat(playerHealth){
 	let foe = new enemyTroll;
 	console.log("A "+foe.name+ " appears!")
 
-	while(playerHealth>0&&foe.health>0){
+	while(player.health>0&&foe.health>0){
 		//Get and execute player action
 		let playerMove = getPlayerAction();
 		if (playerMove === "A"){
-			if (attackHit(foe.armorClass,0)){
+			if (attackHit(foe.armorClass,player.attackBonus)){
 				console.log("Your attack hits!");
 				foe.health -= rollDie(8)-foe.damageResistance;
 			}
@@ -59,33 +59,27 @@ function runCombat(playerHealth){
 			}
 		}
 
-
-
-		////////////////////////////////////////////////
 		//Execute Foe Attack
 		if (foe.health>0&&foe.willAttack()){
-			if (attackHit(playerAC,foe.hitBonus)){
+			if (attackHit(player.armorClass,foe.hitBonus)){
 				console.log("The "+foe.name+" hits!");
-				playerHealth -= foe.rollDamage();
+				player.health -= foe.rollDamage();
 			} else {
 				console.log("The "+foe.name+" misses.");
 			}
 		}
 
-		console.log("Player HP: "+playerHealth+" "+foe.name+" HP: "+foe.health);
+		console.log("Player HP: "+player.health+" "+foe.name+" HP: "+foe.health);
 	}
 
-
-	//////////////////////////////////////////////////
-
 	//Display Combat Result
-	if (playerHealth<=0){
+	if (player.health<=0){
 		console.log("You have been defeated by the " +foe.name+"!");
 	} else if (foe.health<=0){
 		console.log("You have defeated the "+foe.name+"!");
 	}
 
-	return playerHealth;
+	return player.health;
 }
 
 function runGame(){
@@ -95,7 +89,7 @@ function runGame(){
 	let player = new playerCharacter;
 	while (player.health>0){
 		transitionScene();
-		player.health = runCombat(player.health)
+		player.health = runCombat(player);
 		if (player.health>0){
 			player.victories++
 			player.gold += awardGold();

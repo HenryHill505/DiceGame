@@ -132,6 +132,9 @@ class enemyZombie {
 class playerCharacter {
 	constructor() {
 		this.health = 30;
+		this.armorClass = 12;
+		this.attackBonus = 2;
+		this.damageDie = 8;
 		this.gold = 0;
 		this.victories = 0;
 		this.statusEffect = "none";
