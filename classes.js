@@ -10,12 +10,16 @@ class enemyGoblin {
 	}
 
 	rollDamage(){
-	if (isFatigued){
-		return rollDie(this.specialDamageDie);
-	} else {
-		return rollDie(this.damageDie);
+		if (isFatigued){
+			return rollDie(this.specialDamageDie);
+		} else {
+			return rollDie(this.damageDie);
+		}
 	}
-}
+
+	willAttack(){
+		return true;
+	}
 
 }
 
@@ -77,12 +81,16 @@ class enemyRat {
 	}
 
 	rollDamage(){
-	if (isFatigued){
-		return rollDie(this.specialDamageDie);
-	} else {
-		return rollDie(this.damageDie);
+		if (isFatigued){
+			return rollDie(this.specialDamageDie);
+		} else {
+			return rollDie(this.damageDie);
+		}
 	}
-}
+
+	willAttack(){
+		return true;
+	}
 }
 
 class enemyZombie {
