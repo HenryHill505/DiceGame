@@ -32,6 +32,18 @@ class enemyTroll {
 		this.isChargingMove = false;
 	}
 
+
+
+	rollDamage(){
+		if (this.isFatigued){
+			console.log("DamageDie: "+this.specialDamageDie);
+			return rollDie(this.specialDamageDie);
+		} else {
+			console.log("DamageDie: "+this.damageDie);
+			return rollDie(this.damageDie);
+		}
+	}
+
 	//Decide if the troll will unleash a special attack, normal attack, or do nothing
 	willAttack(){
 		if (this.isFatigued){
@@ -49,16 +61,6 @@ class enemyTroll {
 			return false
 		} else {
 			return true
-		}
-	}
-
-	rollDamage(){
-		if (this.isFatigued){
-			console.log("DamageDie: "+this.specialDamageDie);
-			return rollDie(this.specialDamageDie);
-		} else {
-			console.log("DamageDie: "+this.damageDie);
-			return rollDie(this.damageDie);
 		}
 	}
 }
@@ -92,19 +94,39 @@ class enemyZombie {
 		this.hitBonus = 0;
 		this.damageDie = 4;
 		this.isFatigued = false;
+		this.isChargingMove = false;
+		this.statusInfliction = "none"
 	}
 
 	rollDamage(){
-	if (isFatigued){
-		return rollDie(this.specialDamageDie);
-	} else {
-		return rollDie(this.damageDie);
+		if (isFatigued){
+			return rollDie(this.specialDamageDie);
+		} else {
+			return rollDie(this.damageDie);
+		}
+	}
+
+	willAttack(){
+		if (this.isFatigued){
+			this.isFatigued = false;
+			this.statusInfliction = false;
+			console.log("The " this.name + " is recovering from its last attack.")
+			return false;
+		} else if (this.isChargingMove){
+			this.isChargingMove = false;
+			this.isFatigued = true;
+			this.statusInfliction = "paralyze";
+			console.log("The " this.name " bites at you!")
+			return true;
+		} else if (rollDie(3)===3){
+			this.isChargingMove = true;
+			console.log("The " + this.name + " opens wide its putrid maw.");
+			return false;
+		} else {
+			console.log("The " + this.name " attacks.");
+			return true;
+		}
 	}
 }
-}
 
-// let Goblin = new GoblinEnemy;
 
-// console.log(Goblin.health);
-// Goblin.health = 1;
-// console.log(Goblin.health);
