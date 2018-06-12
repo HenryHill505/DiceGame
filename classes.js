@@ -117,7 +117,7 @@ class enemyZombie {
 	willAttack(){
 		if (this.isFatigued){
 			this.isFatigued = false;
-			this.statusInfliction = false;
+			this.statusInfliction = "none";
 			console.log("The "+this.name + " is recovering from its last attack.");
 			return false;
 		} else if (this.isChargingMove){

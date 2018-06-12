@@ -25,8 +25,8 @@ function displayGameOver(victories,goldPieces){
 }
 
 function getPlayerAction() {
-	let playerAction = prompt("What will you do? (A)ttack, (B)lock, (E)vade, (I)nventory").charAt(0);
-	while (playerAction !== "A"){
+	let playerAction = prompt("What will you do? (A)ttack, (B)lock, (E)vade, (I)nventory").charAt(0).toLowerCase();
+	while (playerAction !== "a"){
 		playerAction = prompt("Invalid choice. Choose a valid Action (1.Attack)")
 	}
 	return playerAction;
@@ -48,7 +48,7 @@ function runCombat(player){
 	while(player.health>0&&foe.health>0){
 		//Get and execute player action
 		let playerMove = getPlayerAction();
-		if (playerMove === "A"){
+		if (playerMove === "a"){
 			if (attackHit(foe.armorClass,player.attackBonus)){
 				console.log("Your attack hits!");
 				foe.health -= rollDie(player.damageDie)-foe.damageResistance;
