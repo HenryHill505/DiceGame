@@ -153,7 +153,7 @@ function runCombat(player){
 		//Execute Foe Attack
 		if (foe.health>0&&foe.willAttack()){
 			if (attackHit(player.armorClass,foe.hitBonus)){
-				console.log("The "+foe.name+" hits!");
+				console.log("The "+foe.name+" attacks and hits!");
 				player.health -= foe.rollDamage()-player.damageResistance;
 				if(foe.statusInfliction !=="none"){
 					player.statusEffect = foe.statusInfliction;
