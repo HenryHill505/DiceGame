@@ -34,7 +34,7 @@ function displayGameOver(victories,goldPieces){
 function getPlayerAction() {
 	let playerAction = prompt("What will you do? (A)ttack, (B)lock, (C)harge, (D)odge, (I)nventory").charAt(0).toLowerCase();
 	while (playerAction !== "a"&&playerAction !== "b"&&playerAction !=="c"&&playerAction !=="d"&&playerAction !=="i"){
-		playerAction = prompt("Invalid choice. Choose a valid Action (1.Attack)")
+		playerAction = prompt("Invalid choice. Choose a valid Action (A), (B), (C), (D), or (I)")
 	}
 	return playerAction;
 }
