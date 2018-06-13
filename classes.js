@@ -55,6 +55,17 @@ class enemyGoblin extends enemy {
 	}
 }
 
+class enemyRat extends enemy {
+	constructor(){
+		super();
+		this.name = "Rat";
+		this.health = 10;
+		this.armorClass = 15;
+		this.hitBonus = 1;
+		this.damageDie = 4;
+	}
+}
+
 class enemyTroll extends enemy {
 	constructor(){
 		super();
@@ -99,29 +110,6 @@ class enemyTroll extends enemy {
 	}
 }
 
-class enemyRat {
-	constructor(){
-		this.name = "Rat";
-		this.health = 10;
-		this.armorClass = 15;
-		this.damageResistance = 0;
-		this.hitBonus = 1;
-		this.damageDie = 4;
-		this.isFatigued = false;
-	}
-
-	rollDamage(){
-		if (this.isFatigued){
-			return rollDie(this.specialDamageDie);
-		} else {
-			return rollDie(this.damageDie);
-		}
-	}
-
-	willAttack(){
-		return true;
-	}
-}
 
 class enemyZombie {
 	constructor(){
