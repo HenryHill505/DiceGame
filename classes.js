@@ -18,7 +18,11 @@ class enemy {
 
 	awardLoot(playerObject){
 		let arraySize = this.lootArray.size;
-		playerObject.inventory.push(this.lootArray[rollDie(arraySize-1)])
+		let lootAwarded = this.lootArray[rollDie(arraySize)-1];
+		let lootObject = new lootAwarded;
+		playerObject.inventory.push(lootObject);
+		console.log("You draw a "+lootObject.name+" from the "+this.name"'s remains.")
+
 	}
 
 	rollDamage(){
