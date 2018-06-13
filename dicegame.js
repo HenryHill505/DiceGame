@@ -19,7 +19,7 @@ function awardGold(){
 function createInventoryPrompt(playerObject) {
 	let inventorySize = playerObject.inventory.length;
 	let inventoryString = "Choose item to equip, unequip, or use: \n";
-	for(i=0;i<inventorySize;i++) {
+	for(let i=0;i<inventorySize;i++) {
 		inventoryString +=i+1;
 		inventoryString +=". "+playerObject.inventory[i].name;
 	}
