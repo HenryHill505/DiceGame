@@ -69,11 +69,11 @@ function resolvePlayerAction(action,playerObject,foeObject){
 		switch (action){
 			case "a":
 				if (attackHit(foeObject.armorClass,playerObject.attackBonus)){
-					console.log("Your attack hits!");
+					console.log("You hit the " + foeObject.name + " with your " + playerObject.weapon.name);
 					foeObject.health -= rollDie(playerObject.weapon.damageDie)-foeObject.damageResistance;
 				}
 				else {
-					console.log("Your attack misses.");
+					console.log("You miss with your "+ playerObject.weapon.name);
 				}
 				break;
 
