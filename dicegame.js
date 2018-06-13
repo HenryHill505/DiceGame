@@ -23,7 +23,6 @@ function createInventoryPrompt(playerObject) {
 		inventoryString +=i+1;
 		inventoryString +="."+playerObject.inventory[i].name+ " ";
 	}
-
 	return inventoryString;
 }
 
@@ -168,7 +167,6 @@ function runCombat(player){
 	} else if (foe.health<=0){
 		console.log("You have defeated the "+foe.name+"!");
 	}
-
 	return player.health;
 }
 
@@ -184,7 +182,6 @@ function runGame(){
 			player.gold += awardGold();
 		}
 	}
-
 	displayGameOver(player.victories,player.gold)	
 }
 
