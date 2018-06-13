@@ -22,7 +22,6 @@ class enemyGoblin {
 	willAttack(){
 		return true;
 	}
-
 }
 
 class enemyTroll {
@@ -37,8 +36,6 @@ class enemyTroll {
 		this.isFatigued = false;
 		this.isChargingMove = false;
 	}
-
-
 
 	rollDamage(){
 		if (this.isFatigued){
@@ -177,8 +174,6 @@ class playerCharacter {
 			console.log("You equipped: "+this.itemPosition.name);
 		}
 	}
-
-
 }
 
 class weaponSteelDagger {
