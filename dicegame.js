@@ -122,7 +122,7 @@ function resetStatChanges(action,playerObject,statValue){
 			break;
 		case "c":
 			playerObject.armorClass = statValue;
-			console.log("Player AC reset to " +playerObject.damageResistance);
+			console.log("Player AC reset to " +playerObject.armorClass);
 			break;
 		case "d":
 			playerObject.armorClass = statValue;
