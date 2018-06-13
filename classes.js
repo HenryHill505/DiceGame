@@ -1,5 +1,47 @@
 "use strict";
 
+
+// class shape {
+// 	constructor(){
+// 		this.area=10;
+// 	}
+// }
+
+// class square extends shape {
+// 	constructor(){
+// 		super();
+// 		this.area = 9;
+// 	}
+// }
+
+class enemy {
+	constructor(){
+		this.name = "Enemy";
+		this.health = 1;
+		this.armorClass = 1;
+		this.damageResistance = 0;
+		this.hitBonus = 0;
+		this.damageDie = 1;
+		this.specialDamageDie = 1;
+		this.statusInfliction = "none";
+	}
+
+	rollDamage(){
+		return rollDie(this.damageDie);
+	}
+
+	willAttack(){
+		return true;
+	}
+}
+
+class enemyBlob extends enemy {
+	constructor(){
+		super();
+		this.name = "Blob";
+	}
+}
+
 class enemyGoblin {
 	constructor(){
 		this.name = "Goblin";

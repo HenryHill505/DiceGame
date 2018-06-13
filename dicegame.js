@@ -2,6 +2,9 @@
 
 runGame();
 
+//let newSquare = new square;
+//console.log(newSquare.area);
+
 function attackHit(targetArmorClass,hitBonus){
 	if (rollDie(20)+hitBonus>=targetArmorClass) {
 		return true;
@@ -134,9 +137,9 @@ function rollDie(sideCount){
 }
 
 function runCombat(player){
-	let foeArray = [enemyGoblin,enemyRat,enemyTroll,enemyZombie];
+	let foeArray = [enemyBlob,enemyGoblin,enemyRat,enemyTroll,enemyZombie];
 
-	let foe = new foeArray[rollDie(4)-1];
+	let foe = new foeArray[1-1];
 	console.log("A "+foe.name+ " appears!")
 
 	while(player.health>0&&foe.health>0){
