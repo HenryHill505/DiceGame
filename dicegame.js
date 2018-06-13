@@ -166,6 +166,7 @@ function runCombat(player){
 		let goldPiecesWon = rollDie(foe.goldDie);
 		player.gold += goldPiecesWon;
 		console.log("You find "+goldPiecesWon+" gold pieces on your slain foe.");
+		foe.awardLoot(player);
 		return player.health;
 	}
 }

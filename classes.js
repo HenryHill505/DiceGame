@@ -17,12 +17,11 @@ class enemy {
 	}
 
 	awardLoot(playerObject){
-		let arraySize = this.lootArray.size;
-		let lootAwarded = this.lootArray[rollDie(arraySize)-1];
-		let lootObject = new lootAwarded;
-		playerObject.inventory.push(lootObject);
-		console.log("You draw a "+lootObject.name+" from the "+this.name"'s remains.")
-
+		let arraySize = this.lootArray.length;
+		let lootAwarded = new this.lootArray[rollDie(arraySize)-1];
+		//let lootObject = new lootAwarded;
+		playerObject.inventory.push(lootAwarded);
+		console.log("You draw a "+lootAwarded.name+" from the "+this.name+"'s remains.")
 	}
 
 	rollDamage(){
