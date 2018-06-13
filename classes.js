@@ -2,17 +2,18 @@
 
 class enemy {
 	constructor(){
-		this.name = "Enemy";
-		this.health = 1;
+		
 		this.armorClass = 1;
 		this.damageResistance = 0;
-		this.hitBonus = 0;
 		this.damageDie = 1;
+		this.goldDie = 4;
+		this.health = 1;
+		this.hitBonus = 0;
+		this.isChargingMove = false;
+		this.isFatigued = false;
+		this.name = "Enemy";
 		this.specialDamageDie = 1;
 		this.statusInfliction = "none";
-		this.isFatigued = false;
-		this.isChargingMove = false;
-		this.goldDie = 4;
 	}
 
 	rollDamage(){
@@ -34,37 +35,37 @@ class enemyBlob extends enemy {
 class enemyGoblin extends enemy {
 	constructor(){
 		super()
-		this.name = "Goblin";
-		this.health = 20;
 		this.armorClass = 10;
-		this.hitBonus = 2;
 		this.damageDie = 6;
+		this.health = 20;
+		this.hitBonus = 2;
 		this.isFatigued = false;
+		this.name = "Goblin";
 	}
 }
 
 class enemyRat extends enemy {
 	constructor(){
 		super();
-		this.name = "Rat";
-		this.health = 10;
 		this.armorClass = 15;
-		this.hitBonus = 1;
 		this.damageDie = 4;
+		this.health = 10;
+		this.hitBonus = 1;		
+		this.name = "Rat";
 	}
 }
 
 class enemyTroll extends enemy {
 	constructor(){
 		super();
-		this.name = "Troll";
-		this.health = 30;
 		this.armorClass = 10;
-		this.damageResistance = 0;
-		this.hitBonus = 0;
 		this.damageDie = 8;
-		this.specialDamageDie = 12;
+		this.damageResistance = 0;
+		this.health = 30;
+		this.hitBonus = 0;
 		this.isChargingMove = false;
+		this.name = "Troll";
+		this.specialDamageDie = 12;
 	}
 
 	rollDamage(){
@@ -99,16 +100,15 @@ class enemyTroll extends enemy {
 class enemyZombie extends enemy{
 	constructor(){
 		super();
-		this.name = "Zombie";
-		this.health = 30;
 		this.armorClass = 5;
-		this.damageResistance = 0;
-		this.hitBonus = 0;
 		this.damageDie = 4;
+		this.damageResistance = 0;
+		this.health = 30;
+		this.hitBonus = 0;
 		this.isChargingMove = false;
+		this.name = "Zombie";
 		this.statusInfliction = "none";
 	}
-
 	//Decide if the zombie will unleash a special attack, normal attack, or do nothing
 	willAttack(){
 		if (this.isFatigued){
@@ -159,16 +159,16 @@ class itemHealthPotion extends item{
 
 class playerCharacter {
 	constructor() {
-		this.health = 30;
 		this.armorClass = 12;
-		this.damageResistance = 1;
 		this.attackBonus = 2;
+		this.damageResistance = 1;
 		this.damageDie = 8;
 		this.gold = 0;
-		this.victories = 0;
-		this.statusEffect = "none";
-		this.weapon = new weaponBareHands;
+		this.health = 30;
 		this.inventory = [];
+		this.statusEffect = "none";		
+		this.victories = 0;
+		this.weapon = new weaponBareHands;
 	}
 
 	takeStatusInfliction(status) {
@@ -187,10 +187,10 @@ class playerCharacter {
 
 class weapon {
 	constructor() {
-		this.name = "weapon";
 		this.damageDie = 1;
-		this.statusInfliction = "none";
+		this.name = "weapon";
 		this.position = "weapon"
+		this.statusInfliction = "none";
 	}
 
 	use(playerObject){
@@ -202,23 +202,23 @@ class weapon {
 class weaponBareHands extends weapon {
 	constructor() {
 		super();
-		this.name = "Bare Hands";
 		this.damageDie = 2;
+		this.name = "Bare Hands";
 	}
 }
 
 class weaponSteelDagger extends weapon {
 	constructor() {
 		super();
-		this.name = "Steel Dagger";
 		this.damageDie = 4;
+		this.name = "Steel Dagger";
 	}
 }
 
 class weaponSteelLongsword extends weapon {
 	constructor(){
 		super();
-		this.name = "Steel Longsword";
 		this.damageDie = 6;
+		this.name = "Steel Longsword";
 	}
 }
