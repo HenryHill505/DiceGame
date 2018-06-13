@@ -16,6 +16,11 @@ class enemy {
 		this.statusInfliction = "none";
 	}
 
+	awardLoot(playerObject){
+		let arraySize = this.lootArray.size;
+		playerObject.inventory.push(this.lootArray[rollDie(arraySize-1)])
+	}
+
 	rollDamage(){
 		return rollDie(this.damageDie);
 	}
