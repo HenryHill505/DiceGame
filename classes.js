@@ -101,7 +101,7 @@ class enemyTroll extends enemy {
 			this.isChargingMove = false;
 			this.isFatigued = true;
 			return true;
-		} else if (this.health<=15&&rollDie(1)===1){
+		} else if (rollDie(4)===1){
 			this.isChargingMove = true;
 			console.log("The troll pulls back his club in preparation for a mighty swing...");
 			return false
@@ -188,20 +188,27 @@ class playerCharacter {
 	}
 }
 
-class weaponSteelDagger {
+class weapon {
 	constructor() {
-		this.name = "Steel Dagger";
-		this.damageDie = 4;
+		this.name = "weapon";
+		this.damageDie = 1;
 		this.statusInfliction = "none";
-		this.position = "weapon";
+		this.position = "weapon"
 	}
 }
 
-class weaponSteelLongsword {
+class weaponSteelDagger extends weapon {
+	constructor() {
+		super();
+		this.name = "Steel Dagger";
+		this.damageDie = 4;
+	}
+}
+
+class weaponSteelLongsword extends weapon {
 	constructor(){
+		super();
 		this.name = "Steel Longsword";
 		this.damageDie = 6;
-		this.statusInfliction = "none";
-		this.position = "weapon";
 	}
 }
