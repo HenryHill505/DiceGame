@@ -18,6 +18,17 @@ function awardGold(){
 	return goldPiecesWon;
 }
 
+function createInventoryPrompt(playerObject) {
+	let inventorySize = playerObject.inventory.length;
+	let inventoryString = "Choose item to equip, unequip, or use: \n";
+	for(i=0;i<inventorySize;i++) {
+		inventoryString +=i+1;
+		inventoryString +=". "+playerObject.inventory[i].name;
+	}
+
+	return inventoryString;
+}
+
 function displayGameOver(victories,goldPieces){
 	console.log("After winning " +victories+ " fights, you fall to your last opponent");
 	console.log("You accrued "+goldPieces+ " pieces of gold before your death");
@@ -32,51 +43,73 @@ function getPlayerAction() {
 	return playerAction;
 }
 
+// function getPlayerActionFromPage() {
+// 	// console.log("start of function");
+// 	let textBox = document.getElementById("action-input-box");
+// 	let button = document.getElementById("input-button");
+// 	let action = null;
+
+// 	button.onclick = function(){
+// 		action = textBox.value;
+// 		console.log(action);
+// 	}
+
+// 	// console.log(action);
+// 	// console.log("end of function");
+// }
+
+
 function manageInventory(playerObject){
-	prompt("Choose item to equip, unequip, or use")
+	let targetItemIndex = prompt(createInventoryPrompt(playerObject))-1;
+	playerObject.useItem(playerObject.inventory[targetItemIndex]);
+
 }
 
 //If the players stats are augmented, returns the original value for resetting at the end of the round.
 function resolvePlayerAction(action,playerObject,foeObject){
-	switch (action){
-		case "a":
-			if (attackHit(foeObject.armorClass,playerObject.attackBonus)){
-				console.log("Your attack hits!");
-				foeObject.health -= rollDie(playerObject.damageDie)-foeObject.damageResistance;
-			}
-			else {
-				console.log("Your attack misses.");
-			}
-			break;
+	if (playerObject.statusEffect !== "paralyze"){
+		switch (action){
+			case "a":
+				if (attackHit(foeObject.armorClass,playerObject.attackBonus)){
+					console.log("Your attack hits!");
+					foeObject.health -= rollDie(playerObject.damageDie)-foeObject.damageResistance;
+				}
+				else {
+					console.log("Your attack misses.");
+				}
+				break;
 
-		case "b":
-			originalStatValue = playerObject.damageResistance;
-			playerObject.damageResistance += 2;
-			console.log("You block, raising your DR to "+playerObject.damageResistance);
-			return originalStatValue;
-			break;
-		case "c":
-			if (attackHit(foeObject.armorClass,playerObject.attackBonus+2)){
-				console.log("Your charge hits!");
-				foeObject.health -= rollDie(playerObject.damageDie)-foeObject.damageResistance;
-			}
-			else {
-				console.log("Your charge misses.");
-			}
-			originalStatValue = playerObject.armorClass;
-			playerObject.armorClass -= 2;
-			console.log("Your charge has left you with an AC of "+ playerObject.armorClass);
-			return originalStatValue
-			break;
-		case "d":
-			originalStatValue = playerObject.armorClass;
-			playerObject.armorClass += 2;
-			console.log("You dodge, raising your AC to "+ playerObject.armorClass);
-			return originalStatValue;
-			break;
-		case "i":
-			console.log("You waste your turn attempting to access your inventory, a technology that is still in development...");
-			break;
+			case "b":
+				originalStatValue = playerObject.damageResistance;
+				playerObject.damageResistance += 2;
+				console.log("You block, raising your DR to "+playerObject.damageResistance);
+				return originalStatValue;
+				break;
+			case "c":
+				if (attackHit(foeObject.armorClass,playerObject.attackBonus+2)){
+					console.log("Your charge hits!");
+					foeObject.health -= rollDie(playerObject.damageDie)-foeObject.damageResistance;
+				}
+				else {
+					console.log("Your charge misses.");
+				}
+				originalStatValue = playerObject.armorClass;
+				playerObject.armorClass -= 2;
+				console.log("Your charge has left you with an AC of "+ playerObject.armorClass);
+				return originalStatValue
+				break;
+			case "d":
+				originalStatValue = playerObject.armorClass;
+				playerObject.armorClass += 2;
+				console.log("You dodge, raising your AC to "+ playerObject.armorClass);
+				return originalStatValue;
+				break;
+			case "i":
+				manageInventory(playerObject);
+				break;
+		}
+	} else {
+		console.log("You have been paralyzed! You cannot move!")
 	}
 }
 
@@ -102,9 +135,6 @@ function rollDie(sideCount){
 }
 
 function runCombat(player){
-	// let foeHealth = 20;
-	// let playerAC = 12;
-	// let foeAC = 10;
 	let foeArray = [enemyGoblin,enemyRat,enemyTroll,enemyZombie];
 
 	let foe = new foeArray[rollDie(4)-1];
@@ -121,7 +151,9 @@ function runCombat(player){
 			if (attackHit(player.armorClass,foe.hitBonus)){
 				console.log("The "+foe.name+" hits!");
 				player.health -= foe.rollDamage()-player.damageResistance;
-				player.statusEffect = foe.statusInfliction;
+				if(foe.statusInfliction !=="none"){
+					player.statusEffect = foe.statusInfliction;
+				}
 			} else {
 				console.log("The "+foe.name+" misses.");
 			}
@@ -146,16 +178,24 @@ function runGame(){
 	// let victoryCounter = 0;
 	// let goldCounter = 0;
 	let player = new playerCharacter;
+	seedInventory(player);
 	while (player.health>0){
 		transitionScene();
 		player.health = runCombat(player);
 		if (player.health>0){
 			player.victories++
 			player.gold += awardGold();
-		};
+		}
 	}
 
 	displayGameOver(player.victories,player.gold)	
+}
+
+function seedInventory(playerObject){
+	let dagger = new weaponSteelDagger;
+	let sword = new weaponSteelLongsword;
+	playerObject.inventory.push(dagger);
+	playerObject.inventory.push(sword);
 }
 
 function transitionScene(){

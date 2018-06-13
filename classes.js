@@ -164,13 +164,16 @@ class playerCharacter {
 		}
 	}
 
-	useItem(playerObject, item) {
+	useItem(item) {
 
-		if(item.position = "consumable"){
+		if(item.position === "consumable"){
 			//apply effect and dissappear
+			console.log("BUG");
+		} else {
+			let itemPosition = item.position;
+			this.itemPosition = item;
+			console.log("You equipped: "+this.itemPosition.name);
 		}
-		itemPosition = item.position;
-		player.itemPosition = item;
 	}
 
 
