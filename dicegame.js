@@ -32,24 +32,14 @@ function getPlayerAction() {
 	return playerAction;
 }
 
-// function getPlayerActionFromPage() {
-// 	// console.log("start of function");
-// 	let textBox = document.getElementById("action-input-box");
-// 	let button = document.getElementById("input-button");
-// 	let action = null;
-
-// 	button.onclick = function(){
-// 		action = textBox.value;
-// 		console.log(action);
-// 	}
-
-// 	// console.log(action);
-// 	// console.log("end of function");
-// }
-
-
 function manageInventory(playerObject){
-	let targetItemIndex = prompt(createInventoryPrompt(playerObject))-1;
+	let inventoryPrompt = createInventoryPrompt(playerObject)
+	let targetItemIndex = parseInt(prompt(inventoryPrompt));
+
+	while (!Number.isInteger(targetItemIndex)||(targetItemIndex>playerObject.inventory.length)||targetItemIndex<=0){
+		targetItemIndex = parseInt(prompt("Invalid entry. Choose item by number"+inventoryPrompt));
+	}
+	targetItemIndex -= 1;
 	playerObject.inventory[targetItemIndex].use(playerObject);
 }
 
