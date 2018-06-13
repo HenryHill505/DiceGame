@@ -37,7 +37,7 @@ function manageInventory(playerObject){
 	let targetItemIndex = parseInt(prompt(inventoryPrompt));
 
 	while (!Number.isInteger(targetItemIndex)||(targetItemIndex>playerObject.inventory.length)||targetItemIndex<=0){
-		targetItemIndex = parseInt(prompt("Invalid entry. Choose item by number"+inventoryPrompt));
+		targetItemIndex = parseInt(prompt("Invalid entry. Choose item by number. \n"+inventoryPrompt));
 	}
 	targetItemIndex -= 1;
 	playerObject.inventory[targetItemIndex].use(playerObject);
