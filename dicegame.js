@@ -1,6 +1,4 @@
-// for (let i=0;i<1000;i++){
-// 	console.log(rollDie(5));
-// }
+"use strict"
 
 runGame();
 
@@ -13,7 +11,7 @@ function attackHit(targetAC,hitBonus){
 }
 
 function awardGold(){
-	goldPiecesWon = rollDie(10);
+	let goldPiecesWon = rollDie(10);
 	console.log("You find "+goldPiecesWon+" gold pieces on your slain foe.");
 	return goldPiecesWon;
 }
@@ -68,6 +66,7 @@ function manageInventory(playerObject){
 //If the players stats are augmented, returns the original value for resetting at the end of the round.
 function resolvePlayerAction(action,playerObject,foeObject){
 	if (playerObject.statusEffect !== "paralyze"){
+		let statValue;
 		switch (action){
 			case "a":
 				if (attackHit(foeObject.armorClass,playerObject.attackBonus)){
@@ -80,10 +79,10 @@ function resolvePlayerAction(action,playerObject,foeObject){
 				break;
 
 			case "b":
-				originalStatValue = playerObject.damageResistance;
+				statValue = playerObject.damageResistance;
 				playerObject.damageResistance += 2;
 				console.log("You block, raising your DR to "+playerObject.damageResistance);
-				return originalStatValue;
+				return statValue;
 				break;
 			case "c":
 				if (attackHit(foeObject.armorClass,playerObject.attackBonus+2)){
@@ -93,16 +92,16 @@ function resolvePlayerAction(action,playerObject,foeObject){
 				else {
 					console.log("Your charge misses.");
 				}
-				originalStatValue = playerObject.armorClass;
+				statValue = playerObject.armorClass;
 				playerObject.armorClass -= 2;
 				console.log("Your charge has left you with an AC of "+ playerObject.armorClass);
-				return originalStatValue
+				return statValue
 				break;
 			case "d":
-				originalStatValue = playerObject.armorClass;
+				statValue = playerObject.armorClass;
 				playerObject.armorClass += 2;
 				console.log("You dodge, raising your AC to "+ playerObject.armorClass);
-				return originalStatValue;
+				return statValue;
 				break;
 			case "i":
 				manageInventory(playerObject);
@@ -110,6 +109,10 @@ function resolvePlayerAction(action,playerObject,foeObject){
 		}
 	} else {
 		console.log("You have been paralyzed! You cannot move!")
+		if(rollDie(4) === 4){
+			console.log("Your break through the paralysis!");
+			playerObject.statusEffect = "none";
+		}
 	}
 }
 
@@ -144,7 +147,6 @@ function runCombat(player){
 		//Get and execute player action
 		let playerMove = getPlayerAction();
 		let originalStatValue = resolvePlayerAction(playerMove,player,foe);
-
 
 		//Execute Foe Attack
 		if (foe.health>0&&foe.willAttack()){
