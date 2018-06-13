@@ -2,7 +2,6 @@
 
 class enemy {
 	constructor(){
-		
 		this.armorClass = 1;
 		this.damageResistance = 0;
 		this.damageDie = 1;
@@ -11,6 +10,7 @@ class enemy {
 		this.hitBonus = 0;
 		this.isChargingMove = false;
 		this.isFatigued = false;
+		this.lootArray = [itemHealthPotion, weaponSteelLongsword];
 		this.name = "Enemy";
 		this.specialDamageDie = 1;
 		this.statusInfliction = "none";
@@ -28,6 +28,7 @@ class enemy {
 class enemyBlob extends enemy {
 	constructor(){
 		super();
+		this.goldDie = 1;
 		this.name = "Blob";
 	}
 }
@@ -37,6 +38,7 @@ class enemyGoblin extends enemy {
 		super()
 		this.armorClass = 10;
 		this.damageDie = 6;
+		this.goldDie = 6;
 		this.health = 20;
 		this.hitBonus = 2;
 		this.isFatigued = false;
@@ -49,6 +51,7 @@ class enemyRat extends enemy {
 		super();
 		this.armorClass = 15;
 		this.damageDie = 4;
+		this.goldDie = 4;
 		this.health = 10;
 		this.hitBonus = 1;		
 		this.name = "Rat";
@@ -61,6 +64,7 @@ class enemyTroll extends enemy {
 		this.armorClass = 10;
 		this.damageDie = 8;
 		this.damageResistance = 0;
+		this.goldDie = 10;
 		this.health = 30;
 		this.hitBonus = 0;
 		this.isChargingMove = false;
@@ -103,6 +107,7 @@ class enemyZombie extends enemy{
 		this.armorClass = 5;
 		this.damageDie = 4;
 		this.damageResistance = 0;
+		this.goldDie = 8;
 		this.health = 30;
 		this.hitBonus = 0;
 		this.isChargingMove = false;

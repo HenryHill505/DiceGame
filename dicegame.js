@@ -168,6 +168,7 @@ function runCombat(player){
 		console.log("You find "+goldPiecesWon+" gold pieces on your slain foe.");
 		return player.health;
 	}
+}
 
 function runGame(){
 	
@@ -185,10 +186,8 @@ function runGame(){
 
 function seedInventory(playerObject){
 	let dagger = new weaponSteelDagger;
-	let sword = new weaponSteelLongsword;
 	let healthPotion = new itemHealthPotion;
 	playerObject.inventory.push(dagger);
-	playerObject.inventory.push(sword);
 	playerObject.inventory.push(healthPotion);
 }
 
