@@ -158,7 +158,7 @@ class playerCharacter {
 		this.gold = 0;
 		this.victories = 0;
 		this.statusEffect = "none";
-		this.weapon = null
+		this.weapon = new weaponBareHands;
 		this.inventory = [];
 	}
 
@@ -189,8 +189,12 @@ class weapon {
 	}
 }
 
-class weaponBareHands {
-
+class weaponBareHands extends weapon {
+	constructor() {
+		super();
+		this.name = "Bare Hands";
+		this.damageDie = 2;
+	}
 }
 
 class weaponSteelDagger extends weapon {
