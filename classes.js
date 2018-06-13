@@ -186,6 +186,7 @@ class weapon {
 
 	use(playerObject){
 		playerObject.weapon = this;
+		console.log("You wield your " + this.name);
 	}
 }
 
