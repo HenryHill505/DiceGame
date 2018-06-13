@@ -174,7 +174,7 @@ class playerCharacter {
 	constructor() {
 		this.armorClass = 12;
 		this.attackBonus = 2;
-		this.damageResistance = 1;
+		this.damageResistance = 0;
 		this.damageDie = 8;
 		this.gold = 0;
 		this.health = 30;
