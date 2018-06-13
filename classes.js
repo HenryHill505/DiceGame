@@ -29,8 +29,8 @@ class enemy {
 	}
 
 	rollDamage(){
+		console.log(this.name + " attacks!");
 		return rollDie(this.damageDie);
-		console.log(this.name " attacks!");
 	}
 
 	willAttack(){
