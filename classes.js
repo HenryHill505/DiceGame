@@ -197,6 +197,10 @@ class weapon {
 	}
 }
 
+class weaponBareHands {
+
+}
+
 class weaponSteelDagger extends weapon {
 	constructor() {
 		super();

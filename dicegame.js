@@ -70,7 +70,7 @@ function resolvePlayerAction(action,playerObject,foeObject){
 			case "a":
 				if (attackHit(foeObject.armorClass,playerObject.attackBonus)){
 					console.log("Your attack hits!");
-					foeObject.health -= rollDie(playerObject.damageDie)-foeObject.damageResistance;
+					foeObject.health -= rollDie(playerObject.weapon.damageDie)-foeObject.damageResistance;
 				}
 				else {
 					console.log("Your attack misses.");
@@ -86,7 +86,7 @@ function resolvePlayerAction(action,playerObject,foeObject){
 			case "c":
 				if (attackHit(foeObject.armorClass,playerObject.attackBonus+2)){
 					console.log("Your charge hits!");
-					foeObject.health -= rollDie(playerObject.damageDie)-foeObject.damageResistance;
+					foeObject.health -= rollDie(playerObject.weapon.damageDie)-foeObject.damageResistance;
 				}
 				else {
 					console.log("Your charge misses.");
