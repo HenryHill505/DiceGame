@@ -21,7 +21,7 @@ function createInventoryPrompt(playerObject) {
 	let inventoryString = "Choose item to equip, unequip, or use: \n";
 	for(let i=0;i<inventorySize;i++) {
 		inventoryString +=i+1;
-		inventoryString +=". "+playerObject.inventory[i].name;
+		inventoryString +="."+playerObject.inventory[i].name+ " ";
 	}
 
 	return inventoryString;
