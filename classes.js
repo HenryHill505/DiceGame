@@ -55,8 +55,9 @@ class enemyGoblin extends enemy {
 	}
 }
 
-class enemyTroll {
+class enemyTroll extends enemy {
 	constructor(){
+		super();
 		this.name = "Troll";
 		this.health = 30;
 		this.armorClass = 10;
@@ -64,7 +65,6 @@ class enemyTroll {
 		this.hitBonus = 0;
 		this.damageDie = 8;
 		this.specialDamageDie = 12;
-		this.isFatigued = false;
 		this.isChargingMove = false;
 	}
 
