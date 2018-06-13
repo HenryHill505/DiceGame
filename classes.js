@@ -141,7 +141,6 @@ class enemyZombie extends enemy{
 			console.log("The " + this.name + " opens wide its putrid maw.");
 			return false;
 		} else {
-			console.log("The " + this.name +" attacks.");
 			return true;
 		}
 	}
