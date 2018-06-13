@@ -2,9 +2,6 @@
 
 runGame();
 
-//let newSquare = new square;
-//console.log(newSquare.area);
-
 function attackHit(targetArmorClass,hitBonus){
 	if (rollDie(20)+hitBonus>=targetArmorClass) {
 		return true;
@@ -173,6 +170,7 @@ function runCombat(player){
 	} else if (foe.health<=0){
 		console.log("You have defeated the "+foe.name+"!");
 	}
+	player.gold += awardGold();
 	return player.health;
 }
 
@@ -185,7 +183,7 @@ function runGame(){
 		player.health = runCombat(player);
 		if (player.health>0){
 			player.victories++
-			player.gold += awardGold();
+			//player.gold += awardGold();
 		}
 	}
 	displayGameOver(player.victories,player.gold)	

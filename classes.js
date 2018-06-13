@@ -108,6 +108,7 @@ class enemyZombie extends enemy{
 		this.statusInfliction = "none";
 	}
 
+	//Decide if the zombie will unleash a special attack, normal attack, or do nothing
 	willAttack(){
 		if (this.isFatigued){
 			this.isFatigued = false;
