@@ -82,10 +82,8 @@ class enemyTroll extends enemy {
 
 	rollDamage(){
 		if (this.isFatigued){
-			console.log("DamageDie: "+this.specialDamageDie);
 			return rollDie(this.specialDamageDie);
 		} else {
-			console.log("DamageDie: "+this.damageDie);
 			return rollDie(this.damageDie);
 		}
 	}
@@ -93,17 +91,17 @@ class enemyTroll extends enemy {
 	//Decide if the troll will unleash a special attack, normal attack, or do nothing
 	willAttack(){
 		if (this.isFatigued){
-			console.log(this.name+" is recovering from it's last attack");
+			console.log("The"+this.name+" is recovering from it's last attack");
 			this.isFatigued = false;
 			return false;
 		} else if (this.isChargingMove){
-			console.log("The troll unleashes a devastating swing");
+			console.log("The "+this.name+" unleashes a devastating swing");
 			this.isChargingMove = false;
 			this.isFatigued = true;
 			return true;
 		} else if (rollDie(4)===1){
 			this.isChargingMove = true;
-			console.log("The troll pulls back his club in preparation for a mighty swing...");
+			console.log("The "+this.name+" pulls back his club in preparation for a mighty swing...");
 			return false
 		} else {
 			return true
