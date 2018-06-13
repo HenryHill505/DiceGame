@@ -59,7 +59,7 @@ function getPlayerAction() {
 
 function manageInventory(playerObject){
 	let targetItemIndex = prompt(createInventoryPrompt(playerObject))-1;
-	playerObject.useItem(playerObject.inventory[targetItemIndex]);
+	playerObject.inventory[targetItemIndex].use(playerObject);
 }
 
 //If the players stats are augmented, returns the original value for resetting at the end of the round.

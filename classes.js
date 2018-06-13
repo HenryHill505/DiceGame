@@ -174,18 +174,6 @@ class playerCharacter {
 				break;
 		}
 	}
-
-	useItem(item) {
-
-		if(item.position === "consumable"){
-			//apply effect and dissappear
-			console.log("BUG");
-		} else {
-			let itemPosition = item.position;
-			this.itemPosition = item;
-			console.log("You equipped: "+this.itemPosition.name);
-		}
-	}
 }
 
 class weapon {
@@ -194,6 +182,10 @@ class weapon {
 		this.damageDie = 1;
 		this.statusInfliction = "none";
 		this.position = "weapon"
+	}
+
+	use(playerObject){
+		playerObject.weapon = this;
 	}
 }
 
