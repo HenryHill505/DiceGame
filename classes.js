@@ -1,19 +1,5 @@
 "use strict";
 
-
-// class shape {
-// 	constructor(){
-// 		this.area=10;
-// 	}
-// }
-
-// class square extends shape {
-// 	constructor(){
-// 		super();
-// 		this.area = 9;
-// 	}
-// }
-
 class enemy {
 	constructor(){
 		this.name = "Enemy";
@@ -109,7 +95,6 @@ class enemyTroll extends enemy {
 	}
 }
 
-
 class enemyZombie extends enemy{
 	constructor(){
 		super();
@@ -143,6 +128,30 @@ class enemyZombie extends enemy{
 			console.log("The " + this.name +" attacks.");
 			return true;
 		}
+	}
+}
+
+class item{
+	constructor(){
+		this.name = "Consumable item";
+	}
+	consume(playerObject){
+		let itemIndex = playerObject.inventory.indexOf(this);
+		playerObject.inventory.splice(itemIndex, 1);
+	}
+	use(playerObject){
+		this.consume(playerObject);
+	}
+}
+
+class itemHealthPotion extends item{
+	constructor(){
+		super();
+		this.name = "Health Potion";
+	}
+	use(playerObject){
+		playerObject.health += 4+rollDie(4);
+		this.consume(playerObject);
 	}
 }
 

@@ -194,8 +194,10 @@ function runGame(){
 function seedInventory(playerObject){
 	let dagger = new weaponSteelDagger;
 	let sword = new weaponSteelLongsword;
+	let healthPotion = new itemHealthPotion;
 	playerObject.inventory.push(dagger);
 	playerObject.inventory.push(sword);
+	playerObject.inventory.push(healthPotion);
 }
 
 function transitionScene(){
