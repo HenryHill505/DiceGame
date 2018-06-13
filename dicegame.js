@@ -112,7 +112,7 @@ function resolvePlayerAction(action,playerObject,foeObject){
 }
 
 function resetStatChanges(action,playerObject,statValue){
-	if (playerObject.statusEffect !== "paralyze"){
+	if(statValue !== undefined){
 		switch(action){
 			case "b":
 				playerObject.damageResistance = statValue;
@@ -127,11 +127,11 @@ function resetStatChanges(action,playerObject,statValue){
 				console.log("Player AC reset to "+playerObject.armorClass);
 				break;
 		}
-	}else{
-		if(rollDie(4) === 4){
-			console.log("Your break through the paralysis!");
-			playerObject.statusEffect = "none";
-		}
+	}
+
+	if(playerObject.statusEffect==="paralyze"&&rollDie(4) === 4){
+		console.log("Your break through the paralysis!");
+		playerObject.statusEffect = "none";
 	}
 }
 
