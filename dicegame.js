@@ -58,7 +58,6 @@ function getPlayerAction() {
 function manageInventory(playerObject){
 	let targetItemIndex = prompt(createInventoryPrompt(playerObject))-1;
 	playerObject.useItem(playerObject.inventory[targetItemIndex]);
-
 }
 
 //If the players stats are augmented, returns the original value for resetting at the end of the round.
@@ -174,9 +173,7 @@ function runCombat(player){
 }
 
 function runGame(){
-	// let globalplayerHealth = 50;
-	// let victoryCounter = 0;
-	// let goldCounter = 0;
+	
 	let player = new playerCharacter;
 	seedInventory(player);
 	while (player.health>0){
@@ -201,9 +198,6 @@ function seedInventory(playerObject){
 function transitionScene(){
 	let transitionText = ["Your journey takes you to", "You find yourself in", "You step into", "You come to"];
 	let newScene = [" a cave.", " a forest glade.", " a dusty riverbed.", " a mountain pass."];
-	let newEnemy = ["A hairy troll","A snarling foe","A putrified zombie","A filthy rat"];
-	let confrontationText =[" accosts you!", " blocks your path!", " leaps upon you from behind!", " attacks you!"];
-
+	
 	console.log(transitionText[rollDie(4)-1]+newScene[rollDie(4)-1]);
-	//console.log(newEnemy[rollDie(4)-1]+confrontationText[rollDie(4)-1]);
 }
