@@ -1,9 +1,9 @@
-"use strict"
+"use strict";
 
 runGame();
 
-function attackHit(targetAC,hitBonus){
-	if (rollDie(20)+hitBonus>=targetAC) {
+function attackHit(targetArmorClass,hitBonus){
+	if (rollDie(20)+hitBonus>=targetArmorClass) {
 		return true;
 	} else {
 		return false;
@@ -28,9 +28,7 @@ function createInventoryPrompt(playerObject) {
 }
 
 function displayGameOver(victories,goldPieces){
-	console.log("After winning " +victories+ " fights, you fall to your last opponent");
-	console.log("You accrued "+goldPieces+ " pieces of gold before your death");
-	console.log("Game Over");	
+	console.log("After winning " +victories+ " fights, you fall to your last opponent.\nYou accrued "+goldPieces+ " pieces of gold before your death.\nGame Over.");	
 }
 
 function getPlayerAction() {

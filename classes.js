@@ -1,3 +1,5 @@
+"use strict";
+
 class enemyGoblin {
 	constructor(){
 		this.name = "Goblin";
