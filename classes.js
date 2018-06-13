@@ -25,6 +25,7 @@ class enemy {
 		this.specialDamageDie = 1;
 		this.statusInfliction = "none";
 		this.isFatigued = false;
+		this.isChargingMove = false;
 	}
 
 	rollDamage(){
@@ -111,25 +112,17 @@ class enemyTroll extends enemy {
 }
 
 
-class enemyZombie {
+class enemyZombie extends enemy{
 	constructor(){
+		super();
 		this.name = "Zombie";
 		this.health = 30;
 		this.armorClass = 5;
 		this.damageResistance = 0;
 		this.hitBonus = 0;
 		this.damageDie = 4;
-		this.isFatigued = false;
 		this.isChargingMove = false;
-		this.statusInfliction = "none"
-	}
-
-	rollDamage(){
-		if (this.isFatigued){
-			return rollDie(this.damageDie);
-		} else {
-			return rollDie(this.damageDie);
-		}
+		this.statusInfliction = "none";
 	}
 
 	willAttack(){

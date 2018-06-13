@@ -108,27 +108,30 @@ function resolvePlayerAction(action,playerObject,foeObject){
 		}
 	} else {
 		console.log("You have been paralyzed! You cannot move!")
-		if(rollDie(4) === 4){
-			console.log("Your break through the paralysis!");
-			playerObject.statusEffect = "none";
-		}
 	}
 }
 
 function resetStatChanges(action,playerObject,statValue){
-	switch(action){
-		case "b":
-			playerObject.damageResistance = statValue;
-			console.log("Player DR reset to "+playerObject.damageResistance);
-			break;
-		case "c":
-			playerObject.armorClass = statValue;
-			console.log("Player AC reset to " +playerObject.armorClass);
-			break;
-		case "d":
-			playerObject.armorClass = statValue;
-			console.log("Player AC reset to "+playerObject.armorClass);
-			break;
+	if (playerObject.statusEffect !== "paralyze"){
+		switch(action){
+			case "b":
+				playerObject.damageResistance = statValue;
+				console.log("Player DR reset to "+playerObject.damageResistance);
+				break;
+			case "c":
+				playerObject.armorClass = statValue;
+				console.log("Player AC reset to " +playerObject.armorClass);
+				break;
+			case "d":
+				playerObject.armorClass = statValue;
+				console.log("Player AC reset to "+playerObject.armorClass);
+				break;
+		}
+	}else{
+		if(rollDie(4) === 4){
+			console.log("Your break through the paralysis!");
+			playerObject.statusEffect = "none";
+		}
 	}
 }
 
@@ -139,7 +142,7 @@ function rollDie(sideCount){
 function runCombat(player){
 	let foeArray = [enemyBlob,enemyGoblin,enemyRat,enemyTroll,enemyZombie];
 
-	let foe = new foeArray[3-1];
+	let foe = new foeArray[5-1];
 	console.log("A "+foe.name+ " appears!")
 
 	while(player.health>0&&foe.health>0){
