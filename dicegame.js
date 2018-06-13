@@ -10,12 +10,6 @@ function attackHit(targetArmorClass,hitBonus){
 	}
 }
 
-function awardGold(){
-	let goldPiecesWon = rollDie(10);
-	console.log("You find "+goldPiecesWon+" gold pieces on your slain foe.");
-	return goldPiecesWon;
-}
-
 function createInventoryPrompt(playerObject) {
 	let inventorySize = playerObject.inventory.length;
 	let inventoryString = "Choose item to equip, unequip, or use: \n";
@@ -169,9 +163,16 @@ function runCombat(player){
 		console.log("You have been defeated by the " +foe.name+"!");
 	} else if (foe.health<=0){
 		console.log("You have defeated the "+foe.name+"!");
+		let goldPiecesWon = rollDie(foe.goldDie);
+		player.gold += goldPiecesWon;
+		console.log("You find "+goldPiecesWon+" gold pieces on your slain foe.");
+		return player.health;
 	}
-	player.gold += awardGold();
-	return player.health;
+
+	// let goldPiecesWon = rollDie(foe.goldDie);
+	// player.gold += goldPiecesWon;
+	// console.log("You find "+goldPiecesWon+" gold pieces on your slain foe.");
+	// return player.health;
 }
 
 function runGame(){
@@ -183,7 +184,6 @@ function runGame(){
 		player.health = runCombat(player);
 		if (player.health>0){
 			player.victories++
-			//player.gold += awardGold();
 		}
 	}
 	displayGameOver(player.victories,player.gold)	

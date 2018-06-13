@@ -12,6 +12,7 @@ class enemy {
 		this.statusInfliction = "none";
 		this.isFatigued = false;
 		this.isChargingMove = false;
+		this.goldDie = 4;
 	}
 
 	rollDamage(){
