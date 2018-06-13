@@ -139,7 +139,7 @@ function rollDie(sideCount){
 function runCombat(player){
 	let foeArray = [enemyBlob,enemyGoblin,enemyRat,enemyTroll,enemyZombie];
 
-	let foe = new foeArray[1-1];
+	let foe = new foeArray[2-1];
 	console.log("A "+foe.name+ " appears!")
 
 	while(player.health>0&&foe.health>0){

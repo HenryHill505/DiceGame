@@ -24,6 +24,7 @@ class enemy {
 		this.damageDie = 1;
 		this.specialDamageDie = 1;
 		this.statusInfliction = "none";
+		this.isFatigued = false;
 	}
 
 	rollDamage(){
@@ -42,27 +43,15 @@ class enemyBlob extends enemy {
 	}
 }
 
-class enemyGoblin {
+class enemyGoblin extends enemy {
 	constructor(){
+		super()
 		this.name = "Goblin";
 		this.health = 20;
 		this.armorClass = 10;
-		this.damageResistance = 0;
 		this.hitBonus = 2;
 		this.damageDie = 6;
 		this.isFatigued = false;
-	}
-
-	rollDamage(){
-		if (this.isFatigued){
-			return rollDie(this.specialDamageDie);
-		} else {
-			return rollDie(this.damageDie);
-		}
-	}
-
-	willAttack(){
-		return true;
 	}
 }
 
