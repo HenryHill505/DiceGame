@@ -92,7 +92,7 @@ class enemyTroll extends enemy {
 	//Decide if the troll will unleash a special attack, normal attack, or do nothing
 	willAttack(){
 		if (this.isFatigued){
-			console.log("The"+this.name+" is recovering from it's last attack");
+			console.log("The "+this.name+" is recovering from it's last attack");
 			this.isFatigued = false;
 			return false;
 		} else if (this.isChargingMove){
