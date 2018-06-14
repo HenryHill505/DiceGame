@@ -162,6 +162,8 @@ function runCombat(player){
 }
 
 function runGame(){
+
+	alert("This game must be played with the console open. Input your actions through the prompt box.");
 	
 	let player = new playerCharacter;
 	seedInventory(player);
