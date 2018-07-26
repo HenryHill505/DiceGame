@@ -30,7 +30,7 @@ function stepGame(){
 
     onNewScene = false;
 		if(stealthCheck(player.stealth, chosenEnemy.spot)){
-			printText("The "+chosenEnemy.name+" sees you!")
+			printText("The "+chosenEnemy.name+" hasn't spotted you...")
     	onStealth = true;
 		} else {
 			printText("The "+chosenEnemy.name+" sees you!");

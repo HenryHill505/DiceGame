@@ -238,7 +238,7 @@ class playerCharacter {
 		this.health = 30;
 		this.inventory = [];
 		this.statusEffect = "none";
-		this.stealth = 6;
+		this.stealth = 100;
 		this.victories = 0;
 		this.weapon = new weaponBareHands;
 	}
