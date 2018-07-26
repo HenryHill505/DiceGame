@@ -1,10 +1,5 @@
-"use strict";
 
-//runGame();
-
-initializeGame();
-
-function initializeGame(){
+//////////////InitializeGame////////////////////////
 	let text1 = document.getElementById("text-line-1");
 	let text2 = document.getElementById("text-line-2");
 	let text3 = document.getElementById("text-line-2");
@@ -12,13 +7,85 @@ function initializeGame(){
 	let player = new playerCharacter;
 	seedInventory(player);
 
+  let onNewScene = true;
+  let onStealth = false;
+	let onCombat = false;
+	let onPostCombat = false;
+
 	text1.innerHTML = "Blah blah starter text 1";
-}
+////////////////HoldGlobalVariables///////
+let chosenTerrain;
+let chosenEnemy;
+//////////////////////////////////////////////////
 
 function stepGame(){
+	refreshHUD();
 
-}
+  if(onNewScene){
+    //Establish new scene and enemy
+    chosenTerrain = pickTerrain();
+    printText("You arrive at a "+chosenTerrain.name+".");
+    chosenEnemy = pickEnemy();
+    printText("You see a "+chosenEnemy.name);
 
+    onNewScene = false;
+    onStealth = true;
+		console.log("End newScene")
+  }else if (onStealth) {
+    //Resolve the stealth phase
+    if(!stealthCheck(player.stealth, chosenEnemy.spot)){
+      printText("The "+chosenEnemy.name+" sees you!");
+    }else{
+      resolvePlayerAction(player,chosenEnemy);
+    }
+
+		onStealth = false;
+		onCombat = true;
+		console.log("End Stealth");
+
+  }else if (onCombat){
+		//Combat phase
+		let playerAction = getPlayerCombatAction();
+		let returnedStatValue = resolvePlayerAction(player, playerAction, chosenEnemy);
+		enemyTurn(player, chosenEnemy);
+		resetStatChanges(playerAction,player,returnedStatValue);
+
+		console.log("Player Health: "+player.health);
+		console.log("Enemy Health: "+ chosenEnemy.health);
+
+		if (chosenEnemy.health<=0) {
+				onCombat = false;
+				onPostCombat = true;
+				printText("You have defeated the "+chosenEnemy.name);
+			}
+		if(player.health<=0){
+			onCombat = false;
+			onPostCombat = true;
+			printText("You have been slain by the "+chosenEnemy.name);
+		}
+	} else if (onPostCombat){
+		//Wrap up combat then jump to a new scene
+		if(player.health<=0){
+			console.log("dead");
+			displayGameOver(player.victories,player.gold)
+		}else{
+			let goldWon = rollDie(chosenEnemy.goldDie);
+			let lootWon = "nothing else"
+			player.gold += goldWon;
+			printText("You find "+goldWon+" pieces of gold and " + lootWon + " on the "+chosenEnemy.name+"'s remains");
+			onPostCombat = false;
+			onNewScene = true;
+		}
+	}
+}//End stepGame()
+
+//////////////////////////////////
+/////////Function List///////////
+////////////////////////////////
+// function inputBoxValue(){
+// 	let inputValue = getElementById("action-input-box").value;
+// 	return inputValue;
+// }
 
 function attackHit(targetArmorClass,hitBonus){
 	if (rollDie(20)+hitBonus>=targetArmorClass) {
@@ -46,12 +113,23 @@ function displayStats(player){
 	console.log("AC: "+player.armorClass+"AttackBonus: "+player.attackBonus+"DR: "+player.damageResistance);
 }
 
-function getPlayerAction() {
-	let playerAction = prompt("What will you do? (A)ttack, (B)lock, (C)harge, (D)odge, (I)nventory").charAt(0).toLowerCase();
-	while (playerAction !== "a"&&playerAction !== "b"&&playerAction !=="c"&&playerAction !=="d"&&playerAction !=="i"){
-		playerAction = prompt("Invalid choice. Choose a valid Action (A), (B), (C), (D), or (I)")
+function enemyTurn(playerObject,foeObject){
+	if (foeObject.health>0&&foeObject.willAttack()){
+		if (attackHit(playerObject.armorClass,foeObject.hitBonus)){
+			console.log("The "+foeObject.name+"'s attack hits!");
+			playerObject.health -= foeObject.rollDamage()-playerObject.damageResistance;
+			if(foeObject.statusInfliction !=="none"){
+				playerObject.statusEffect = foeObject.statusInfliction;
+			}
+		} else {
+			console.log("The "+foeObject.name+" misses.");
+		}
 	}
-	return playerAction;
+}
+
+function getPlayerCombatAction(){
+	let chosenAction = document.getElementById("action-input-box").value.charAt(0).toLowerCase();
+	return chosenAction
 }
 
 function manageInventory(playerObject){
@@ -65,53 +143,78 @@ function manageInventory(playerObject){
 	playerObject.inventory[targetItemIndex].use(playerObject);
 }
 
-//If the players stats are augmented, returns the original value for resetting at the end of the round.
-function resolvePlayerAction(action,playerObject,foeObject){
-	if (playerObject.statusEffect !== "paralyze"){
-		let statValue;
-		switch (action){
-			case "a":
-				if (attackHit(foeObject.armorClass,playerObject.attackBonus)){
-					console.log("You hit the " + foeObject.name + " with your " + playerObject.weapon.name);
-					foeObject.health -= rollDie(playerObject.weapon.damageDie)-foeObject.damageResistance;
-				}
-				else {
-					console.log("You miss with your "+ playerObject.weapon.name);
-				}
-				break;
+function pickEnemy(){
+  let enemyArray = [enemyBlob,enemyGoblin,enemyRat,enemyTroll];
+  return new enemyArray[rollDie(enemyArray.length)-1];
+}
+function pickTerrain(){
+  let terrainArray = [terrainForestGlade,terrainRiverBed]
+  return new terrainArray[rollDie(terrainArray.length)-1];
+}
 
-			case "b":
-				statValue = playerObject.damageResistance;
-				playerObject.damageResistance += 2;
-				console.log("You block, raising your DR to "+playerObject.damageResistance);
-				return statValue;
-				break;
-			case "c":
-				if (attackHit(foeObject.armorClass,playerObject.attackBonus+2)){
-					console.log("Your charge hits!");
-					foeObject.health -= rollDie(playerObject.weapon.damageDie)-foeObject.damageResistance;
-				}
-				else {
-					console.log("Your charge misses.");
-				}
-				statValue = playerObject.armorClass;
-				playerObject.armorClass -= 2;
-				console.log("Your charge has left you with an AC of "+ playerObject.armorClass);
-				return statValue
-				break;
-			case "d":
-				statValue = playerObject.armorClass;
-				playerObject.armorClass += 2;
-				console.log("You dodge, raising your AC to "+ playerObject.armorClass);
-				return statValue;
-				break;
-			case "i":
-				manageInventory(playerObject);
-				break;
-		}
-	} else {
-		console.log("You have been paralyzed! You cannot move!")
+function printText(text){
+  text3.innerHTML = text2.innerHTML;
+  text2.innerHTML = text1.innerHTML;
+  text1.innerHTML = text;
+}
+
+function refreshHUD(){
+	healthDisplay = document.getElementById("health-display");
+	goldDisplay = document.getElementById("gold-display");
+	victoryDisplay = document.getElementById("victory-display");
+	armorDisplay = document.getElementById("armor-display");
+	weaponDisplay = document.getElementById("weapon-display");
+
+	healthDisplay.innerHTML = "Health: " +player.health;
+	goldDisplay.innerHTML = "Gold: "+player.gold;
+	victoryDisplay.innerHTML = "Victories: "+player.victories;
+	if (player.armorBody !== null){
+		armorDisplay.innerHTML = "Armor: " + player.armorBody.name;
 	}
+	weaponDisplay.innerHTML = "Weapon: " + player.weapon.name;
+
+}
+
+function resolvePlayerAction(playerObject,chosenAction,foeObject){
+  switch(chosenAction){
+    case "a":
+      if (attackHit(foeObject.armorClass,playerObject.attackBonus)){
+        console.log("You hit the " + foeObject.name + " with your " + playerObject.weapon.name);
+        foeObject.health -= rollDie(playerObject.weapon.damageDie)-foeObject.damageResistance;
+      }
+      else {
+        console.log("You miss with your "+ playerObject.weapon.name);
+      }
+      break;
+    case "b":
+      statValue = playerObject.damageResistance;
+      playerObject.damageResistance += 2;
+      console.log("You block, raising your DR to "+playerObject.damageResistance);
+      return statValue;
+      break;
+    case "c":
+      if (attackHit(foeObject.armorClass,playerObject.attackBonus+2)){
+        console.log("Your charge hits!");
+        foeObject.health -= rollDie(playerObject.weapon.damageDie)-foeObject.damageResistance;
+      }
+      else {
+        console.log("Your charge misses.");
+      }
+      statValue = playerObject.armorClass;
+      playerObject.armorClass -= 2;
+      console.log("Your charge has left you with an AC of "+ playerObject.armorClass);
+      return statValue
+      break;
+    case "d":
+      statValue = playerObject.armorClass;
+      playerObject.armorClass += 2;
+      console.log("You dodge, raising your AC to "+ playerObject.armorClass);
+      return statValue;
+      break;
+    case "i":
+      manageInventory(playerObject);
+      break;
+  }
 }
 
 function resetStatChanges(action,playerObject,statValue){
@@ -142,63 +245,6 @@ function rollDie(sideCount){
 	return Math.floor(Math.random()*sideCount)+1;
 }
 
-function runCombat(player){
-	let foeArray = [enemyBlob,enemyGoblin,enemyRat,enemyTroll,enemyZombie];
-
-	let foe = new foeArray[rollDie(5)-1];
-	console.log("A "+foe.name+ " appears!")
-
-	while(player.health>0&&foe.health>0){
-		//Get and execute player action
-		let playerMove = getPlayerAction();
-		let originalStatValue = resolvePlayerAction(playerMove,player,foe);
-
-		//Execute Foe Attack
-		if (foe.health>0&&foe.willAttack()){
-			if (attackHit(player.armorClass,foe.hitBonus)){
-				console.log("The "+foe.name+"'s attack hits!");
-				player.health -= foe.rollDamage()-player.damageResistance;
-				if(foe.statusInfliction !=="none"){
-					player.statusEffect = foe.statusInfliction;
-				}
-			} else {
-				console.log("The "+foe.name+" misses.");
-			}
-		}
-
-		console.log("Player HP: "+player.health+" "+foe.name+" HP: "+foe.health);
-		resetStatChanges(playerMove,player,originalStatValue);
-	}
-
-	//Display Combat Result
-	if (player.health<=0){
-		console.log("You have been defeated by the " +foe.name+"!");
-	} else if (foe.health<=0){
-		console.log("You have defeated the "+foe.name+"!");
-		let goldPiecesWon = rollDie(foe.goldDie);
-		player.gold += goldPiecesWon;
-		console.log("You find "+goldPiecesWon+" gold pieces on your slain foe.");
-		foe.awardLoot(player);
-		return player.health;
-	}
-}
-
-function runGame(){
-
-	alert("This game must be played with the console open. Input your actions through the prompt box.");
-
-	let player = new playerCharacter;
-	seedInventory(player);
-	while (player.health>0){
-		transitionScene();
-		player.health = runCombat(player);
-		if (player.health>0){
-			player.victories++
-		}
-	}
-	displayGameOver(player.victories,player.gold)
-}
-
 function seedInventory(playerObject){
 	let dagger = new weaponSteelDagger;
 	let healthPotion = new itemHealthPotion;
@@ -210,9 +256,6 @@ function seedInventory(playerObject){
 	playerObject.inventory.push(raggedMantle);
 }
 
-function transitionScene(){
-	let transitionText = ["Your journey takes you to", "You find yourself in", "You step into", "You come to"];
-	let newScene = [" a cave.", " a forest glade.", " a dusty riverbed.", " a mountain pass."];
-
-	console.log(transitionText[rollDie(4)-1]+newScene[rollDie(4)-1]);
+function stealthCheck(playerStealth, enemySpot){
+    return rollDie(20)+playerStealth>rollDie(20)+enemySpot;
 }

@@ -49,6 +49,13 @@ class armorBodyRaggedMantle extends armorBody {
 	}
 }
 
+class armorBodySimpleCloak extends armorBody {
+	constructor(){
+		super();
+		this.name = "Simple Cloak"
+	}
+}
+
 class enemy {
 	constructor(){
 		this.armorClass = 1;
@@ -62,6 +69,7 @@ class enemy {
 		this.lootArray = [itemHealthPotion, weaponSteelLongsword];
 		this.name = "Enemy";
 		this.specialDamageDie = 1;
+		this.spot = 10;
 		this.statusInfliction = "none";
 	}
 
@@ -230,6 +238,7 @@ class playerCharacter {
 		this.health = 30;
 		this.inventory = [];
 		this.statusEffect = "none";
+		this.stealth = 6;
 		this.victories = 0;
 		this.weapon = new weaponBareHands;
 	}
