@@ -13,7 +13,7 @@
 	let onPostCombat = false;
 
 	text1.innerHTML = "Blah blah starter text 1";
-////////////////HoldGlobalVariables///////
+////////////////HoldGlobalVariables////////////////
 let chosenTerrain;
 let chosenEnemy;
 //////////////////////////////////////////////////
@@ -29,16 +29,17 @@ function stepGame(){
     printText("You see a "+chosenEnemy.name);
 
     onNewScene = false;
-    onStealth = true;
+		if(stealthCheck(player.stealth, chosenEnemy.spot)){
+    	onStealth = true;
+		} else {
+			printText("The "+chosenEnemy.name+" sees you!");
+			onCombat = true;
+		}
 		console.log("End newScene")
+
   }else if (onStealth) {
     //Resolve the stealth phase
-    if(!stealthCheck(player.stealth, chosenEnemy.spot)){
-      printText("The "+chosenEnemy.name+" sees you!");
-    }else{
-      resolvePlayerAction(player,chosenEnemy);
-    }
-
+    resolvePlayerAction(player,chosenEnemy);
 		onStealth = false;
 		onCombat = true;
 		console.log("End Stealth");
