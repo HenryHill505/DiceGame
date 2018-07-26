@@ -30,6 +30,7 @@ function stepGame(){
 
     onNewScene = false;
 		if(stealthCheck(player.stealth, chosenEnemy.spot)){
+			printText("The "+chosenEnemy.name+" sees you!")
     	onStealth = true;
 		} else {
 			printText("The "+chosenEnemy.name+" sees you!");
@@ -157,6 +158,7 @@ function printText(text){
   text3.innerHTML = text2.innerHTML;
   text2.innerHTML = text1.innerHTML;
   text1.innerHTML = text;
+	console.log(text);
 }
 
 function refreshHUD(){
@@ -180,36 +182,36 @@ function resolvePlayerAction(playerObject,chosenAction,foeObject){
   switch(chosenAction){
     case "a":
       if (attackHit(foeObject.armorClass,playerObject.attackBonus)){
-        console.log("You hit the " + foeObject.name + " with your " + playerObject.weapon.name);
+        printText("You hit the " + foeObject.name + " with your " + playerObject.weapon.name);
         foeObject.health -= rollDie(playerObject.weapon.damageDie)-foeObject.damageResistance;
       }
       else {
-        console.log("You miss with your "+ playerObject.weapon.name);
+        printText("You miss with your "+ playerObject.weapon.name);
       }
       break;
     case "b":
       statValue = playerObject.damageResistance;
       playerObject.damageResistance += 2;
-      console.log("You block, raising your DR to "+playerObject.damageResistance);
+      printText("You block, raising your DR to "+playerObject.damageResistance);
       return statValue;
       break;
     case "c":
       if (attackHit(foeObject.armorClass,playerObject.attackBonus+2)){
-        console.log("Your charge hits!");
+        printText("Your charge hits!");
         foeObject.health -= rollDie(playerObject.weapon.damageDie)-foeObject.damageResistance;
       }
       else {
-        console.log("Your charge misses.");
+        printText("Your charge misses.");
       }
       statValue = playerObject.armorClass;
       playerObject.armorClass -= 2;
-      console.log("Your charge has left you with an AC of "+ playerObject.armorClass);
+      printText("Your charge has left you with an AC of "+ playerObject.armorClass);
       return statValue
       break;
     case "d":
       statValue = playerObject.armorClass;
       playerObject.armorClass += 2;
-      console.log("You dodge, raising your AC to "+ playerObject.armorClass);
+      printText("You dodge, raising your AC to "+ playerObject.armorClass);
       return statValue;
       break;
     case "i":
@@ -223,21 +225,21 @@ function resetStatChanges(action,playerObject,statValue){
 		switch(action){
 			case "b":
 				playerObject.damageResistance = statValue;
-				console.log("Player DR reset to "+playerObject.damageResistance);
+				printText("Player DR reset to "+playerObject.damageResistance);
 				break;
 			case "c":
 				playerObject.armorClass = statValue;
-				console.log("Player AC reset to " +playerObject.armorClass);
+				printText("Player AC reset to " +playerObject.armorClass);
 				break;
 			case "d":
 				playerObject.armorClass = statValue;
-				console.log("Player AC reset to "+playerObject.armorClass);
+				printText("Player AC reset to "+playerObject.armorClass);
 				break;
 		}
 	}
 
 	if(playerObject.statusEffect==="paralyze"&&rollDie(4) === 4){
-		console.log("Your break through the paralysis!");
+		printText("Your break through the paralysis!");
 		playerObject.statusEffect = "none";
 	}
 }
