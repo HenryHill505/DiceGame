@@ -1,5 +1,54 @@
 "use strict";
 
+class armorBody {
+	constructor(){
+		this.armorClassModifier = 0;
+		this.attackBonusModifier = 0;
+		this.damageResistanceModifier = 0;
+		this.name = "armorBody";
+	}
+
+	unequip(playerObject){
+		playerObject.armorClass -= this.armorClassModifier;
+		playerObject.attackBonus -= this.attackBonusModifier;
+		playerObject.damageResistance -= this.damageResistanceModifier;
+		playerObject.armorBody = null;
+	}
+
+	use(playerObject){
+		if (playerObject.armorBody !== null){
+			playerObject.armorBody.unequip(playerObject);
+		}
+		playerObject.armorBody = this;
+		playerObject.armorClass += this.armorClassModifier;
+		playerObject.attackBonus += this.attackBonusModifier;
+		playerObject.damageResistance += this.damageResistanceModifier
+		console.log("You don your " + this.name);
+		displayStats(playerObject);
+	}
+}
+
+class armorBodyGreasyMail extends armorBody {
+	constructor(){
+		super();
+		this.armorClassModifier = -1;
+		this.attackBonusModifier = 0;
+		this.damageResistanceModifier = 2;
+		this.name = "Greasy Mail";
+
+	}
+}
+
+class armorBodyRaggedMantle extends armorBody {
+	constructor(){
+		super();
+		this.armorClassModifier = 2;
+		this.attackBonusModifier = -1;
+		this.damageResistanceModifier = 0;
+		this.name = "Ragged Mantle";
+	}
+}
+
 class enemy {
 	constructor(){
 		this.armorClass = 1;
@@ -62,7 +111,7 @@ class enemyRat extends enemy {
 		this.damageDie = 4;
 		this.goldDie = 4;
 		this.health = 10;
-		this.hitBonus = 1;		
+		this.hitBonus = 1;
 		this.name = "Rat";
 	}
 }
@@ -172,6 +221,7 @@ class itemHealthPotion extends item{
 
 class playerCharacter {
 	constructor() {
+		this.armorBody = null;
 		this.armorClass = 12;
 		this.attackBonus = 2;
 		this.damageResistance = 0;
@@ -179,7 +229,7 @@ class playerCharacter {
 		this.gold = 0;
 		this.health = 30;
 		this.inventory = [];
-		this.statusEffect = "none";		
+		this.statusEffect = "none";
 		this.victories = 0;
 		this.weapon = new weaponBareHands;
 	}
@@ -195,6 +245,31 @@ class playerCharacter {
 				console.log("You have been poisoned");
 				break;
 		}
+	}
+}
+
+class terrain{
+	constructor(){
+		this.danger = "";
+		this.entranceText = [];
+		this.hasEvent = false;
+		this.hasWeather = false;
+		this.name = "terrain";
+		this.sneakModifier = 0;
+	}
+}
+
+class terrainForestGlade extends terrain{
+	constructor(){
+		super();
+		this.name = "Forest Glade";
+	}
+}
+
+class terrainRiverBed extends terrain{
+	constructor(){
+		super();
+		this.name = "River Bed";
 	}
 }
 

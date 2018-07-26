@@ -1,6 +1,24 @@
 "use strict";
 
-runGame();
+//runGame();
+
+initializeGame();
+
+function initializeGame(){
+	let text1 = document.getElementById("text-line-1");
+	let text2 = document.getElementById("text-line-2");
+	let text3 = document.getElementById("text-line-2");
+
+	let player = new playerCharacter;
+	seedInventory(player);
+
+	text1.innerHTML = "Blah blah starter text 1";
+}
+
+function stepGame(){
+
+}
+
 
 function attackHit(targetArmorClass,hitBonus){
 	if (rollDie(20)+hitBonus>=targetArmorClass) {
@@ -21,7 +39,11 @@ function createInventoryPrompt(playerObject) {
 }
 
 function displayGameOver(victories,goldPieces){
-	console.log("After winning " +victories+ " fights, you fall to your last opponent.\nYou accrued "+goldPieces+ " pieces of gold before your death.\nGame Over.");	
+	console.log("After winning " +victories+ " fights, you fall to your last opponent.\nYou accrued "+goldPieces+ " pieces of gold before your death.\nGame Over.");
+}
+
+function displayStats(player){
+	console.log("AC: "+player.armorClass+"AttackBonus: "+player.attackBonus+"DR: "+player.damageResistance);
 }
 
 function getPlayerAction() {
@@ -164,7 +186,7 @@ function runCombat(player){
 function runGame(){
 
 	alert("This game must be played with the console open. Input your actions through the prompt box.");
-	
+
 	let player = new playerCharacter;
 	seedInventory(player);
 	while (player.health>0){
@@ -174,19 +196,23 @@ function runGame(){
 			player.victories++
 		}
 	}
-	displayGameOver(player.victories,player.gold)	
+	displayGameOver(player.victories,player.gold)
 }
 
 function seedInventory(playerObject){
 	let dagger = new weaponSteelDagger;
 	let healthPotion = new itemHealthPotion;
+	let greasyMail = new armorBodyGreasyMail;
+	let raggedMantle = new armorBodyRaggedMantle;
 	playerObject.inventory.push(dagger);
 	playerObject.inventory.push(healthPotion);
+	playerObject.inventory.push(greasyMail);
+	playerObject.inventory.push(raggedMantle);
 }
 
 function transitionScene(){
 	let transitionText = ["Your journey takes you to", "You find yourself in", "You step into", "You come to"];
 	let newScene = [" a cave.", " a forest glade.", " a dusty riverbed.", " a mountain pass."];
-	
+
 	console.log(transitionText[rollDie(4)-1]+newScene[rollDie(4)-1]);
 }
