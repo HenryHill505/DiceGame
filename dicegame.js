@@ -173,8 +173,10 @@ function refreshHUD(){
 	victoryDisplay.innerHTML = "Victories: "+player.victories;
 	if (player.armorBody !== null){
 		armorDisplay.innerHTML = "Armor: " + player.armorBody.name;
+		armorDisplay.title = "AC: " + player.armorBody.armorClassModifier + " DR: " + player.armorBody.damageResistanceModifier + " Attack: " + player.armorBody.attackBonusModifier
 	}
 	weaponDisplay.innerHTML = "Weapon: " + player.weapon.name;
+	weaponDisplay.title = "Damage: 1d" + player.weapon.damageDie;
 
 }
 
