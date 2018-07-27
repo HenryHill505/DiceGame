@@ -97,6 +97,15 @@ function attackHit(targetArmorClass,hitBonus){
 	}
 }
 
+function changeButtonVisibility(buttonRow, setVisible){
+	let row = document.getElementById(buttonRow)
+	if (setVisible){
+		row.style.display = "block";
+	}else{
+		row.style.display = "none";
+	}
+}
+
 function createInventoryPrompt(playerObject) {
 	let inventorySize = playerObject.inventory.length;
 	let inventoryString = "Choose item to equip, unequip, or use: \n";
