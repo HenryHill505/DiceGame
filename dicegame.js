@@ -4,6 +4,10 @@
 	let text2 = document.getElementById("text-line-2");
 	let text3 = document.getElementById("text-line-2");
 
+	changeButtonVisibility("combat-button-row", false);
+	changeButtonVisibility("sneak-button-row", false);
+	changeButtonVisibility("idle-button-row", false);
+
 	let player = new playerCharacter;
 	seedInventory(player);
 
@@ -32,14 +36,17 @@ function stepGame(playerAction){
 		if(stealthCheck(player.stealth, chosenEnemy.spot)){
 			printText("The "+chosenEnemy.name+" hasn't spotted you...")
     	onStealth = true;
+			changeButtonVisibility("sneak-button-row", true);
 		} else {
 			printText("The "+chosenEnemy.name+" sees you!");
 			onCombat = true;
+			changeButtonVisibility("combat-button-row", true);
 		}
 		console.log("End newScene")
 
   }else if (onStealth) {
     //Resolve the stealth phase
+
     resolvePlayerAction(player, playerAction, chosenEnemy);
 		onStealth = false;
 		onCombat = true;
@@ -47,7 +54,7 @@ function stepGame(playerAction){
 
   }else if (onCombat){
 		//Combat phase
-//		let playerAction = getPlayerCombatAction();
+
 		let returnedStatValue = resolvePlayerAction(player, playerAction, chosenEnemy);
 		enemyTurn(player, chosenEnemy);
 		resetStatChanges(playerAction,player,returnedStatValue);
@@ -58,11 +65,14 @@ function stepGame(playerAction){
 		if (chosenEnemy.health<=0) {
 				onCombat = false;
 				onPostCombat = true;
+				changeButtonVisibility("combat-button-row", false);
+				changeButtonVisibility("idle-button-row", true);
 				printText("You have defeated the "+chosenEnemy.name);
 			}
 		if(player.health<=0){
 			onCombat = false;
 			onPostCombat = true;
+			changeButtonVisibility("combat-button-row", false);
 			printText("You have been slain by the "+chosenEnemy.name);
 		}
 	} else if (onPostCombat){
@@ -77,6 +87,8 @@ function stepGame(playerAction){
 			printText("You find "+goldWon+" pieces of gold and " + lootWon + " on the "+chosenEnemy.name+"'s remains");
 			onPostCombat = false;
 			onNewScene = true;
+			changeButtonVisibility("idle-button-row", false);
+			changeButtonVisibility("sneak-button-row", true);
 		}
 	}
 }//End stepGame()
