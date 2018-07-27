@@ -18,7 +18,7 @@ let chosenTerrain;
 let chosenEnemy;
 //////////////////////////////////////////////////
 
-function stepGame(){
+function stepGame(playerAction){
 	refreshHUD();
 
   if(onNewScene){
@@ -40,14 +40,14 @@ function stepGame(){
 
   }else if (onStealth) {
     //Resolve the stealth phase
-    resolvePlayerAction(player,chosenEnemy);
+    resolvePlayerAction(player, playerAction, chosenEnemy);
 		onStealth = false;
 		onCombat = true;
 		console.log("End Stealth");
 
   }else if (onCombat){
 		//Combat phase
-		let playerAction = getPlayerCombatAction();
+//		let playerAction = getPlayerCombatAction();
 		let returnedStatValue = resolvePlayerAction(player, playerAction, chosenEnemy);
 		enemyTurn(player, chosenEnemy);
 		resetStatChanges(playerAction,player,returnedStatValue);
